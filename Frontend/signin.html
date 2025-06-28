@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - CUET Blood Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #b40000;
+      --primary-hover: #8a0000;
+      --text-color: #374151;
+      --light-text: #6b7280;
+      --bg-color: #f8fafc;
+      --white: #ffffff;
+      --gray-light: #e5e7eb;
+      --gray-medium: #d1d5db;
+      --red-light: #fee2e2;
+      --red-medium: #fca5a5;
+      --red-dark: #dc2626;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 15px 0;
+    }
+    
+    .header-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo {
+      height: 48px;
+    }
+    
+    .logo-text {
+      margin-left: 10px;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text-color);
+    }
+    
+    .signup-link {
+      color: var(--primary-color);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .signup-link:hover {
+      text-decoration: underline;
+    }
+    
+    /* Main Content Styles */
+    main {
+      padding: 60px 0;
+    }
+    
+    .login-container {
+      background-color: var(--white);
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+    
+    .login-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 24px;
+      color: var(--text-color);
+    }
+    
+    .login-subtitle {
+      text-align: center;
+      color: var(--light-text);
+      margin-bottom: 32px;
+    }
+    
+    /* Form Styles */
+    .form-group {
+      margin-bottom: 24px;
+    }
+    
+    .form-label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid var(--gray-medium);
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px rgba(180, 0, 0, 0.2);
+    }
+    
+    .remember-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .remember-me {
+      display: flex;
+      align-items: center;
+    }
+    
+    .remember-checkbox {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid var(--gray-medium);
+      accent-color: var(--primary-color);
+      margin-right: 8px;
+    }
+    
+    .forgot-password {
+      font-size: 0.875rem;
+      color: var(--primary-color);
+      text-decoration: none;
+    }
+    
+    .forgot-password:hover {
+      text-decoration: underline;
+    }
+    
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+      background-color: var(--primary-hover);
+    }
+    
+    /* Divider Styles */
+    .divider {
+      position: relative;
+      margin: 24px 0;
+    }
+    
+    .divider-line {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background-color: var(--gray-medium);
+      z-index: 1;
+    }
+    
+    .divider-text {
+      position: relative;
+      display: inline-block;
+      padding: 0 12px;
+      background-color: var(--white);
+      color: var(--light-text);
+      font-size: 0.875rem;
+      z-index: 2;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    /* Social Login Styles */
+    .social-login {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 24px;
+    }
+    
+    .social-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 16px;
+      border: 1px solid var(--gray-medium);
+      border-radius: 6px;
+      background-color: var(--white);
+      color: var(--text-color);
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      transition: background-color 0.3s ease;
+    }
+    .toast {
+  visibility: hidden;
+  min-width: 250px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  z-index: 1;
+  right:30px;
+  bottom: 30px;
+  font-size: 17px;
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(-20px);
+}
+    
+    .social-btn:hover {
+      background-color: #f9fafb;
+    }
+    
+    .social-icon {
+      margin-right: 8px;
+    }
+    
+    .google-icon {
+      color: #db4437;
+    }
+    
+    .facebook-icon {
+      color: #4267b2;
+    }
+    
+    /* Signup Link Styles */
+    .signup-text {
+      text-align: center;
+      margin-top: 24px;
+      font-size: 0.875rem;
+      color: var(--light-text);
+    }
+    
+    .signup-link-inline {
+      color: var(--primary-color);
+      font-weight: 500;
+      text-decoration: none;
+    }
+    
+    .signup-link-inline:hover {
+      text-decoration: underline;
+    }
+    
+    /* Error Message Styles */
+    .error-message {
+      background-color: var(--red-light);
+      border: 1px solid var(--red-medium);
+      color: var(--red-dark);
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin-bottom: 24px;
+      font-size: 0.875rem;
+    }
+    
+    /* Responsive Styles */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 24px;
+      }
+      
+      .social-login {
+        grid-template-columns: 1fr;
+      }
+      
+      .logo-text {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container header-content">
+      <div class="logo-container">
+        <img src="./363834705_3390671587914144_8701399567104923369_n-removebg-preview.png" alt="" class="logo">
+        <h1 class="logo-text">CUET Blood Bank</h1>
+      </div>
+      <a href="./signup.html" class="signup-link">Don't have an account? Sign Up</a>
+    </div>
+  </header>
+  
+  <main>
+    <div class="container">
+      <div class="login-container">
+        <h2 class="login-title">Welcome Back</h2>
+        <p class="login-subtitle">Sign in to your account to continue</p>
+        
+        <form id="loginForm" class="login-form">
+          <div class="form-group">
+            <label for="loginEmail" class="form-label">Email Address</label>
+            <input type="email" id="loginEmail" name="email" required class="form-input">
+          </div>
+          
+          <div class="form-group">
+            <label for="loginPassword" class="form-label">Password</label>
+            <input type="password" id="loginPassword" name="password" required class="form-input">
+          </div>
+          
+          <div class="remember-container">
+            <div class="remember-me">
+              <input type="checkbox" id="rememberMe" name="rememberMe" class="remember-checkbox">
+              <label for="rememberMe">Remember me</label>
+            </div>
+            <a href="#" class="forgot-password">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="submit-btn">Sign In</button>
+        </form>
+        
+        <div class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">Or continue with</span>
+        </div>
+        
+        <div class="social-login">
+          <a href="#" class="social-btn">
+            <i class="fab fa-google social-icon google-icon"></i>
+            <span>Google</span>
+          </a>
+          <a href="#" class="social-btn">
+            <i class="fab fa-facebook-f social-icon facebook-icon"></i>
+            <span>Facebook</span>
+          </a>
+        </div>
+        
+        <p class="signup-text">Don't have an account? <a href="./signup.html" class="signup-link-inline">Sign Up</a></p>
+      </div>
+    </div>
+    <div id="toast" class="toast">Registration successful! You can now log in.</div>
+
+  </main>
+  
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+  
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+  
+     
+      const existingError = document.querySelector('.error-message');
+      if (existingError) existingError.remove();
+  
+      
+      if (!email || !password) {
+        showError('Please fill in all fields');
+        return;
+      }
+  
+      try {
+        const response = await fetch('http://localhost:5000/api/auth/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ email, password })
+        });
+  
+        const result = await response.json();
+  
+        if (!response.ok) {
+          throw new Error(result.message || 'Login failed');
+        }
+        localStorage.setItem('token', result.token);
+
+        function showToastAndRedirect(message, redirectUrl) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+
+    
+    setTimeout(() => {
+      toast.classList.remove("show");
+      window.location.href = redirectUrl;
+    }, 3000);
+  }
+  showToastAndRedirect('Login successful!', './dashboard.html');
+
+  
+      } catch (error) {
+        console.error(error);
+        showError(error.message);
+      }
+      function showError(message) {
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'error-message';
+      errorDiv.textContent = message;
+  
+      const form = document.getElementById('loginForm');
+      form.insertBefore(errorDiv, form.firstChild);
+  
+      setTimeout(() => {
+        errorDiv.remove();
+      }, 5000);
+    }
+    });
+  
+    
+
+    
+  </script>
+</body>
+</html>

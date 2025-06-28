@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CUET Blood Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      background-color: #f9fafb;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Colors */
+    :root {
+      --primary: #B40000;
+      --secondary: #172554;
+      --accent: #F3F4F6;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --red-50: #fef2f2;
+      --red-100: #fee2e2;
+      --red-800: #991b1b;
+    }
+    
+    /* Header */
+    header {
+      background-color: var(--white);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 15px;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-container img {
+      height: 64px;
+    }
+    
+    .logo-text {
+      margin-left: 8px;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    .nav-links a {
+      color: var(--secondary);
+      font-weight: 500;
+      margin: 0 12px;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+    
+    .auth-buttons {
+      display: none;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .sign-in-btn {
+      padding: 8px 16px;
+      color: var(--primary);
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sign-in-btn:hover {
+      background-color: var(--gray-100);
+    }
+    
+    .sign-up-btn {
+      padding: 8px 16px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .sign-up-btn:hover {
+      background-color: var(--red-800);
+    }
+    
+    .mobile-menu-btn {
+      font-size: 24px;
+      color: var(--secondary);
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* Hero Section */
+    .hero-section {
+      background: linear-gradient(to right, var(--red-50), var(--white));
+      padding: 48px 0;
+    }
+    
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .hero-title {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero-title span {
+      color: var(--primary);
+    }
+    
+    .hero-description {
+      font-size: 18px;
+      color: var(--gray-600);
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+    
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .primary-btn {
+      padding: 12px 24px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .primary-btn:hover {
+      background-color: var(--red-800);
+    }
+    
+    .secondary-btn {
+      padding: 12px 24px;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .secondary-btn:hover {
+      background-color: var(--red-50);
+    }
+    
+    .hero-image {
+      display: flex;
+      justify-content: center;
+    }
+    
+    .hero-image img {
+      max-width: 400px;
+      width: 100%;
+    }
+    
+    /* Search Section */
+    .search-section {
+      background-color: var(--white);
+      padding: 48px 0;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .section-title {
+      font-size: 30px;
+      font-weight: 700;
+      color: var(--gray-900);
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .search-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background-color: var(--white);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    
+    .search-container select {
+      flex: 1 1 200px;
+      padding: 8px 16px;
+      border: 1px solid var(--gray-300);
+      border-radius: 6px;
+      font-size: 16px;
+      color: var(--gray-700);
+      outline: none;
+      min-height: 40px;
+    }
+    
+    .search-container select:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(180, 0, 0, 0.2);
+    }
+    
+    .search-btn {
+      padding: 8px 24px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+    }
+    
+    .search-btn:hover {
+      background-color: var(--red-800);
+    }
+    
+    .search-btn i {
+      margin-left: 8px;
+    }
+    
+    /* Stats Section */
+    .stats-section {
+      background-color: var(--gray-50);
+      padding: 64px 0;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+    }
+    
+    .stat-card {
+      background-color: var(--white);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .stat-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 16px;
+      background-color: var(--red-50);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .stat-icon i {
+      font-size: 30px;
+      color: var(--primary);
+    }
+    
+    .stat-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+    }
+    
+    .stat-value {
+      color: var(--gray-600);
+    }
+    
+    /* Facts & Myths Section */
+    .facts-section {
+      background-color: var(--white);
+      padding: 64px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .section-header h2 {
+      font-size: 30px;
+      font-weight: 700;
+      display: inline-block;
+    }
+    
+    .section-header h2 span:first-child {
+      color: var(--gray-900);
+    }
+    
+    .section-header h2 span:last-child {
+      color: var(--primary);
+    }
+    
+    .facts-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 48px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .facts-column h3 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 24px;
+    }
+    
+    .fact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    
+    .fact-icon {
+      margin-right: 16px;
+      margin-top: 4px;
+      font-size: 20px;
+    }
+    
+    .fact-icon.check {
+      color: #10b981;
+    }
+    
+    .fact-icon.cross {
+      color: #ef4444;
+    }
+    
+    .fact-text {
+      color: var(--gray-700);
+    }
+    
+    /* Benefits Section */
+    .benefits-section {
+      background-color: var(--gray-50);
+      padding: 64px 0;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    
+    .benefit-card {
+      background-color: var(--white);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+    }
+    
+    .benefit-card:hover {
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    .benefit-icon {
+      width: 40px;
+      height: 40px;
+      background-color: var(--red-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+    
+    .benefit-icon i {
+      color: var(--primary);
+    }
+    
+    .benefit-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    
+    .benefit-description {
+      color: var(--gray-600);
+    }
+    
+    /* How It Works Section */
+    .how-it-works {
+      background-color: var(--white);
+      padding: 64px 0;
+    }
+    
+    .steps-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .step {
+      text-align: center;
+    }
+    
+    .step-number {
+      width: 96px;
+      height: 96px;
+      margin: 0 auto 24px;
+      background-color: var(--red-100);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    
+    .step-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+    }
+    
+    .step-description {
+      color: var(--gray-600);
+    }
+    
+    /* CTA Section */
+    .cta-section {
+      background-color: var(--primary);
+      color: var(--white);
+      padding: 64px 0;
+      text-align: center;
+    }
+    
+    .cta-title {
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+    
+    .cta-description {
+      font-size: 20px;
+      margin-bottom: 32px;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background-color: var(--white);
+      color: var(--primary);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .cta-btn:hover {
+      background-color: var(--gray-100);
+    }
+    
+    /* Footer */
+    footer {
+      background-color: var(--gray-900);
+      color: var(--white);
+      padding-top: 64px;
+      padding-bottom: 32px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    
+    .footer-logo img {
+      height: 48px;
+      margin-right: 12px;
+    }
+    
+    .footer-logo h3 {
+      font-size: 20px;
+      font-weight: 700;
+    }
+    
+    .footer-description {
+      color: var(--gray-400);
+      margin-bottom: 24px;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 16px;
+    }
+    
+    .social-links a {
+      color: var(--gray-400);
+      transition: color 0.3s ease;
+    }
+    
+    .social-links a:hover {
+      color: var(--white);
+    }
+    
+    .footer-links h3 {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 24px;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 12px;
+    }
+    
+    .footer-links a {
+      color: var(--gray-400);
+      transition: color 0.3s ease;
+    }
+    
+    .footer-links a:hover {
+      color: var(--white);
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    
+    .contact-icon {
+      margin-right: 16px;
+      color: var(--gray-400);
+    }
+    
+    .contact-text {
+      color: var(--gray-400);
+    }
+    
+    .contact-text a {
+      transition: color 0.3s ease;
+    }
+    
+    .contact-text a:hover {
+      color: var(--white);
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid var(--gray-800);
+      padding-top: 32px;
+      text-align: center;
+      color: var(--gray-400);
+    }
+    
+    .footer-bottom p {
+      margin-bottom: 8px;
+    }
+    
+    /* Mobile Menu */
+    #slidingPage {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 256px;
+      height: 100%;
+      background-color: var(--white);
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 50;
+      padding: 24px;
+      transform: translateX(100%);
+      transition: transform 0.3s ease-in-out;
+      overflow-y: auto;
+    }
+    
+    #slidingPage.open {
+      transform: translateX(0);
+    }
+    
+    .close-menu-btn {
+      margin-bottom: 32px;
+      color: var(--gray-600);
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    
+    .close-menu-btn:hover {
+      color: var(--primary);
+    }
+    
+    .mobile-menu-links {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .mobile-menu-link {
+      display: block;
+      padding: 8px 16px;
+      border-radius: 6px;
+      color: var(--gray-800);
+      font-weight: 500;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    .mobile-menu-link:hover {
+      background-color: var(--red-50);
+      color: var(--primary);
+    }
+    
+    .mobile-menu-link i {
+      margin-right: 12px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .mobile-auth-buttons {
+      margin-top: 48px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gray-200);
+    }
+    
+    .mobile-sign-in-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 8px 16px;
+      border: 1px solid var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+      border-radius: 6px;
+      margin-bottom: 12px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .mobile-sign-in-btn:hover {
+      background-color: var(--red-50);
+    }
+    
+    .mobile-sign-up-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 8px 16px;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      border-radius: 6px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .mobile-sign-up-btn:hover {
+      background-color: var(--red-800);
+    }
+    
+    /* Backdrop */
+    #backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 40;
+      display: none;
+    }
+    
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      .header-container {
+        padding: 12px 30px;
+      }
+      
+      .nav-links {
+        display: flex;
+      }
+      
+      .auth-buttons {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: none;
+      }
+      
+      .hero-section {
+        padding: 96px 0;
+      }
+      
+      .hero-container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+      
+      .hero-content {
+        text-align: left;
+        align-items: flex-start;
+        margin-bottom: 0;
+        flex: 1;
+      }
+      
+      .hero-title {
+        font-size: 48px;
+      }
+      
+      .hero-image {
+        flex: 1;
+      }
+      
+      .hero-buttons {
+        justify-content: flex-start;
+      }
+      
+      .facts-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (min-width: 1024px) {
+      .hero-title {
+        font-size: 60px;
+      }
+    }
+    
+    /* Animation */
+    .animated-bg {
+      animation: gradient 15s ease infinite;
+      background-size: 400% 400%;
+    }
+    
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo-container">
+        <img src="./363834705_3390671587914144_8701399567104923369_n-removebg-preview.png" alt="CUET Blood Bank Logo">
+        <span class="logo-text">CUET Blood Bank</span>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./campaigns.html">Campaigns</a>
+        <a href="./teams.html">Teams</a>
+        <a href="./aboutus.html">About Us</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="./signin.html" class="sign-in-btn">Sign In</a>
+        <a href="./signup.html" class="sign-up-btn">Sign Up</a>
+      </div>
+      
+      <button class="mobile-menu-btn" id="openSlide">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">
+          Donate Blood, <br>
+          <span>Save Lives</span>
+        </h1>
+        <p class="hero-description">
+          Join our community of blood donors and help us provide life-saving blood to those in need across Chittagong.
+        </p>
+        <div class="hero-buttons">
+          <a href="./signup.html" class="primary-btn">Become a Donor</a>
+          <a href="#search" class="secondary-btn">Find Blood</a>
+        </div>
+      </div>
+      <div class="hero-image">
+        <img src="https://cdn-icons-png.flaticon.com/512/3209/3209103.png" alt="Blood donation illustration">
+      </div>
+    </div>
+  </section>
+
+  <!-- Search Section -->
+  <section id="search" class="search-section">
+    <div class="container">
+      <h2 class="section-title">Find Blood Donors</h2>
+      
+      <div class="search-container">
+        <select>
+          <option value="" disabled selected>Blood Type</option>
+          <option value="A+">A+</option>
+          <option value="A-">A-</option>
+          <option value="B+">B+</option>
+          <option value="B-">B-</option>
+          <option value="AB+">AB+</option>
+          <option value="AB-">AB-</option>
+          <option value="O+">O+</option>
+          <option value="O-">O-</option>
+        </select>
+        
+        <select>
+          <option value="" disabled selected>Division</option>
+          <option value="Chittagong">Chittagong</option>
+          <option value="Dhaka">Dhaka</option>
+          <option value="Sylhet">Sylhet</option>
+          <option value="Rajshahi">Rajshahi</option>
+        </select>
+        
+        <select>
+          <option value="" disabled selected>District</option>
+          <option value="Chittagong">Chittagong</option>
+          <option value="Cox's Bazar">Cox's Bazar</option>
+          <option value="Bandarban">Bandarban</option>
+        </select>
+        
+        <select>
+          <option value="" disabled selected>Area</option>
+          <option value="Chittagong Sadar">Chittagong Sadar</option>
+          <option value="Chawkbazar">Chawkbazar</option>
+          <option value="Agrabad">Agrabad</option>
+        </select>
+        
+        <button class="search-btn">
+          Search Donors <i class="fas fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-heart"></i>
+          </div>
+          <h3 class="stat-title">Happy Receivers</h3>
+          <p class="stat-value">1000+</p>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-hand-holding-heart"></i>
+          </div>
+          <h3 class="stat-title">Donors</h3>
+          <p class="stat-value">500+</p>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <h3 class="stat-title">Area Covers</h3>
+          <p class="stat-value">15+</p>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="stat-title">Volunteers</h3>
+          <p class="stat-value">200+</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Facts & Myths Section -->
+  <section class="facts-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>
+          <span>DO</span>
+          <span> YOU KNOW</span>
+        </h2>
+      </div>
+      
+      <div class="facts-container">
+        <div class="facts-column">
+          <h3>Facts</h3>
+          <div class="fact-item">
+            <div class="fact-icon check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fact-text">The process is relatively painless, with only a slight prick felt during needle insertion</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fact-text">A healthy body replenishes the lost blood volume within 48 hours, with no long-term effects</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fact-text">All equipment used is sterile and single-use, ensuring no risk of infection</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fact-text">Blood banks need a constant supply for emergencies and chronic conditions like cancer or anemia</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon check">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fact-text">Vegetarians have sufficient nutrients, including iron, to maintain healthy hemoglobin levels</p>
+          </div>
+        </div>
+        
+        <div class="facts-column">
+          <h3>Myths</h3>
+          <div class="fact-item">
+            <div class="fact-icon cross">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <p class="fact-text">Donating blood is painful</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon cross">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <p class="fact-text">Donating blood weakens the donor</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon cross">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <p class="fact-text">You can catch diseases like HIV from donating</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon cross">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <p class="fact-text">Blood donation is only needed during emergencies</p>
+          </div>
+          
+          <div class="fact-item">
+            <div class="fact-icon cross">
+              <i class="fas fa-times-circle"></i>
+            </div>
+            <p class="fact-text">Vegetarians cannot donate blood</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Benefits Section -->
+  <section class="benefits-section">
+    <div class="container">
+      <div class="section-header">
+        <h2>
+          <span>Your</span>
+          <span> Benefits</span>
+        </h2>
+      </div>
+      
+      <div class="benefits-grid">
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-heartbeat"></i>
+          </div>
+          <h3 class="benefit-title">Health Benefits</h3>
+          <p class="benefit-description">Improves cardiovascular health and promotes overall well-being.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-life-ring"></i>
+          </div>
+          <h3 class="benefit-title">Saving Lives</h3>
+          <p class="benefit-description">Ensures timely support for patients in life-threatening situations.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <h3 class="benefit-title">Community Impact</h3>
+          <p class="benefit-description">Creates a culture of care and empathy within the community.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-smile"></i>
+          </div>
+          <h3 class="benefit-title">Personal Fulfillment</h3>
+          <p class="benefit-description">Provides a deep sense of accomplishment and purpose</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-bell"></i>
+          </div>
+          <h3 class="benefit-title">Emergency Preparedness</h3>
+          <p class="benefit-description">Contributes to maintaining a steady blood supply for disaster or crisis response.</p>
+        </div>
+        
+        <div class="benefit-card">
+          <div class="benefit-icon">
+            <i class="fas fa-bullhorn"></i>
+          </div>
+          <h3 class="benefit-title">Social Awareness</h3>
+          <p class="benefit-description">Raises awareness about the importance of regular blood donation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h3 class="step-title">Register</h3>
+          <p class="step-description">Sign up as a donor or recipient in just a few minutes.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <h3 class="step-title">Find Match</h3>
+          <p class="step-description">Use our search tool to find compatible blood donors nearby.</p>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <h3 class="step-title">Connect</h3>
+          <p class="step-description">Contact matched donors through our secure platform.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <h2 class="cta-title">Ready to Make a Difference?</h2>
+      <p class="cta-description">Join our community of blood donors today and help save lives in your area.</p>
+      <a href="./signup.html" class="cta-btn">Register as a Donor</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img src="./363834705_3390671587914144_8701399567104923369_n-removebg-preview.png" alt="CUET Blood Bank Logo">
+            <h3>CUET Blood Bank</h3>
+          </div>
+          <p class="footer-description">
+            CUET Blood Bank is an innovative platform designed to bridge the gap between blood donors and recipients, ensuring timely access to life-saving blood donations during emergencies.
+          </p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Useful Links</h3>
+          <ul>
+            <li><a href="./aboutus.html">About Us</a></li>
+            <li><a href="#">Our Team</a></li>
+            <li><a href="./campaigns.html">Campaigns</a></li>
+            <li><a href="./privacypolicy.html">Privacy Policy</a></li>
+            <li><a href="./termsandconditions.html">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Contact Us</h3>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt contact-icon"></i>
+            <p class="contact-text">Level 03, Safura Tower, 20 Kemal Ataturk Ave, Banani, Dhaka 1213</p>
+          </div>
+          
+          <div class="contact-item">
+            <i class="fas fa-phone-alt contact-icon"></i>
+            <a href="tel:+8801732392280" class="contact-text">+8801732392280</a>
+          </div>
+          
+          <div class="contact-item">
+            <i class="fas fa-envelope contact-icon"></i>
+            <a href="mailto:cuetbloodbank.org@gmail.com" class="contact-text">cuetbloodbank.org@gmail.com</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>Copyright © 2025 BloodBridge. All rights reserved.</p>
+        <p>Developed & Maintenance By - CUET Blood Bank IT</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu -->
+  <div id="slidingPage">
+    <button id="closeSlide" class="close-menu-btn">
+      <i class="fas fa-times"></i>
+    </button>
+    
+    <div class="mobile-menu-links">
+      <a href="./index.html" class="mobile-menu-link">
+        <i class="fas fa-home"></i> Home
+      </a>
+      
+      <a href="./campaigns.html" class="mobile-menu-link">
+        <i class="fas fa-calendar-alt"></i> Campaigns
+      </a>
+      
+      <a href="./teams.html" class="mobile-menu-link">
+        <i class="fas fa-users"></i> Teams
+      </a>
+      
+      <a href="./aboutus.html" class="mobile-menu-link">
+        <i class="fas fa-info-circle"></i> About Us
+      </a>
+      
+      <a href="./privacypolicy.html" class="mobile-menu-link">
+        <i class="fas fa-shield-alt"></i> Privacy Policy
+      </a>
+      
+      <a href="./termsandconditions.html" class="mobile-menu-link">
+        <i class="fas fa-file-contract"></i> Terms & Conditions
+      </a>
+    </div>
+    
+    <div class="mobile-auth-buttons">
+      <a href="./signin.html" class="mobile-sign-in-btn">Sign In</a>
+      <a href="./signup.html" class="mobile-sign-up-btn">Sign Up</a>
+    </div>
+  </div>
+
+  <!-- Backdrop for mobile menu -->
+  <div id="backdrop"></div>
+
+  <script>
+    // Mobile menu toggle
+    const openSlide = document.getElementById('openSlide');
+    const closeSlide = document.getElementById('closeSlide');
+    const slidingPage = document.getElementById('slidingPage');
+    const backdrop = document.getElementById('backdrop');
+    
+    openSlide.addEventListener('click', function(e) {
+      e.preventDefault();
+      slidingPage.classList.add('open');
+      backdrop.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeSlide.addEventListener('click', function(e) {
+      e.preventDefault();
+      slidingPage.classList.remove('open');
+      backdrop.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+    
+    backdrop.addEventListener('click', function() {
+      slidingPage.classList.remove('open');
+      backdrop.style.display = 'none';
+      document.body.style.overflow = '';
+    });
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+                
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        document.querySelector(targetId).scrollIntoView({
+          behavior: 'smooth'
+        });
+        
+        // Close mobile menu if open
+        if (slidingPage.classList.contains('open')) {
+          slidingPage.classList.remove('open');
+          backdrop.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    });
+    
+    // Animation on scroll
+    function animateOnScroll() {
+      const elements = document.querySelectorAll('.benefit-card, .stat-card, .fact-item, .step');
+      
+      elements.forEach(element => {
+        const elementPosition = element.getBoundingClientRect().top;
+        const windowHeight = window.innerHeight;
+        
+        if (elementPosition < windowHeight * 0.8) {
+          element.style.opacity = '1';
+          element.style.transform = 'translateY(0)';
+        }
+      });
+    }
+    
+    // Initialize elements with opacity 0 for animation
+    document.addEventListener('DOMContentLoaded', function() {
+      const elements = document.querySelectorAll('.benefit-card, .stat-card, .fact-item, .step');
+      elements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      });
+      
+      window.addEventListener('scroll', animateOnScroll);
+      animateOnScroll(); // Run once on load
+    });
+  </script>
+</body>
+</html>

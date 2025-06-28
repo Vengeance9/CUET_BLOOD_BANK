@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campaigns - CUET Blood Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background-color: #f8f9fa;
+    }
+    
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 15px;
+    }
+    
+    /* Header Styles */
+    header {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 15px 0;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    
+    .logo-text {
+      font-size: 1.25rem;
+      font-weight: bold;
+      color: #172554;
+    }
+    
+    .nav-links {
+      display: none;
+    }
+    
+    .nav-links a {
+      color: #172554;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 20px;
+      transition: color 0.3s;
+    }
+    
+    .nav-links a:hover {
+      color: #b40000;
+    }
+    
+    .auth-buttons {
+      display: none;
+    }
+    
+    .auth-buttons a {
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 10px;
+    }
+    
+    .auth-buttons .signin {
+      color: #b40000;
+    }
+    
+    .auth-buttons .signup {
+      background-color: #b40000;
+      color: white;
+    }
+    
+    .auth-buttons .signup:hover {
+      background-color: #9a0000;
+    }
+    
+    .mobile-menu-btn {
+      font-size: 1.5rem;
+      color: #172554;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+    
+    /* Campaign Section */
+    .campaign-section {
+      padding: 60px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    
+    .section-header h1 {
+      font-size: 2.25rem;
+      color: #212529;
+      margin-bottom: 15px;
+    }
+    
+    .section-header p {
+      font-size: 1.125rem;
+      color: #6c757d;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .campaign-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .campaign-card {
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+    
+    .campaign-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .campaign-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .campaign-content {
+      padding: 20px;
+    }
+    
+    .campaign-meta {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      font-size: 0.875rem;
+      margin-bottom: 10px;
+    }
+    
+    .campaign-meta i {
+      margin-right: 8px;
+    }
+    
+    .campaign-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #212529;
+    }
+    
+    .campaign-description {
+      color: #6c757d;
+      margin-bottom: 15px;
+    }
+    
+    .campaign-location {
+      display: flex;
+      align-items: center;
+      color: #6c757d;
+      font-size: 0.875rem;
+      margin-bottom: 20px;
+    }
+    
+    .campaign-location i {
+      margin-right: 8px;
+    }
+    
+    .register-btn {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      background-color: #b40000;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background-color 0.3s;
+    }
+    
+    .register-btn:hover {
+      background-color: #9a0000;
+    }
+    
+    /* Footer Styles */
+    footer {
+      background-color: #212529;
+      color: white;
+      padding: 50px 0 20px;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+    
+    .footer-logo-img {
+      height: 30px;
+      margin-right: 10px;
+    }
+    
+    .footer-logo-text {
+      font-size: 1.125rem;
+      font-weight: bold;
+    }
+    
+    .footer-about {
+      margin-bottom: 20px;
+      color: #adb5bd;
+    }
+    
+    .social-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .social-links a {
+      color: #adb5bd;
+      font-size: 1.125rem;
+      transition: color 0.3s;
+    }
+    
+    .social-links a:hover {
+      color: white;
+    }
+    
+    .footer-links h3 {
+      font-size: 1.125rem;
+      margin-bottom: 15px;
+    }
+    
+    .footer-links ul {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    
+    .footer-links a {
+      color: #adb5bd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .footer-contact h3 {
+      font-size: 1.125rem;
+      margin-bottom: 15px;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 15px;
+      color: #adb5bd;
+    }
+    
+    .contact-item i {
+      margin-right: 10px;
+      margin-top: 3px;
+    }
+    
+    .footer-bottom {
+      border-top: 1px solid #495057;
+      padding-top: 20px;
+      margin-top: 30px;
+      text-align: center;
+      color: #adb5bd;
+      font-size: 0.875rem;
+    }
+    
+    /* Mobile Menu */
+    .mobile-menu {
+      position: fixed;
+      top: 0;
+      right: -300px;
+      width: 280px;
+      height: 100vh;
+      background-color: white;
+      box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+    
+    .mobile-menu.open {
+      right: 0;
+    }
+    
+    .mobile-menu-header {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 30px;
+    }
+    
+    .close-menu-btn {
+      font-size: 1.5rem;
+      background: none;
+      border: none;
+      color: #6c757d;
+      cursor: pointer;
+    }
+    
+    .mobile-nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    .mobile-nav-links a {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      color: #212529;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.3s;
+    }
+    
+    .mobile-nav-links a:hover {
+      background-color: #f8f9fa;
+    }
+    
+    .mobile-nav-links i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .mobile-auth-buttons {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid #e9ecef;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .mobile-auth-buttons a {
+      padding: 10px;
+      text-align: center;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .mobile-signin {
+      border: 1px solid #b40000;
+      color: #b40000;
+    }
+    
+    .mobile-signup {
+      background-color: #b40000;
+      color: white;
+    }
+    
+    .backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      display: none;
+    }
+    
+    .backdrop.active {
+      display: block;
+    }
+    
+    /* Responsive Styles */
+    @media (min-width: 768px) {
+      .nav-links {
+        display: flex;
+      }
+      
+      .auth-buttons {
+        display: flex;
+      }
+      
+      .mobile-menu-btn {
+        display: none;
+      }
+      
+      .campaign-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .footer-container {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+    
+    @media (min-width: 992px) {
+      .campaign-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-container">
+      <div class="logo-container">
+        <img src="" alt="" class="logo-img">
+        <span class="logo-text">CUET Blood Bank</span>
+      </div>
+      
+      <nav class="nav-links">
+        <a href="./index.html">Home</a>
+        <a href="./campaigns.html">Campaigns</a>
+        <a href="./teams.html">Teams</a>
+        <a href="./aboutus.html">About Us</a>
+      </nav>
+      
+      <div class="auth-buttons">
+        <a href="./signin.html" class="signin">Sign In</a>
+        <a href="./signup.html" class="signup">Sign Up</a>
+      </div>
+      
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- Campaign Section -->
+  <section class="campaign-section">
+    <div class="container">
+      <div class="section-header">
+        <h1>Upcoming Blood Donation Campaigns</h1>
+        <p>Join our life-saving initiatives across Chittagong</p>
+      </div>
+      
+      <div class="campaign-grid">
+        <!-- Campaign Card 1 -->
+        <div class="campaign-card">
+          <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef" alt="Blood drive" class="campaign-img">
+          <div class="campaign-content">
+            <div class="campaign-meta">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Feb 15, 2024</span>
+            </div>
+            <h3 class="campaign-title">CUET Annual Blood Drive</h3>
+            <p class="campaign-description">Annual blood donation event at CUET campus with free health checkups.</p>
+            <div class="campaign-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>CUET Central Auditorium</span>
+            </div>
+            <a href="#" class="register-btn">Register Now</a>
+          </div>
+        </div>
+        
+        <!-- Campaign Card 2 -->
+        <div class="campaign-card">
+          <img src="https://images.unsplash.com/photo-1581595219315-a187dd40c322" alt="Blood drive" class="campaign-img">
+          <div class="campaign-content">
+            <div class="campaign-meta">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Mar 5, 2024</span>
+            </div>
+            <h3 class="campaign-title">Chittagong City Marathon</h3>
+            <p class="campaign-description">Post-marathon blood donation event for runners and volunteers.</p>
+            <div class="campaign-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>Chittagong City Medical Center</span>
+            </div>
+            <a href="#" class="register-btn">Register Now</a>
+          </div>
+        </div>
+        
+        <!-- Campaign Card 3 -->
+        <div class="campaign-card">
+          <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb" alt="Blood drive" class="campaign-img">
+          <div class="campaign-content">
+            <div class="campaign-meta">
+              <i class="fas fa-calendar-alt"></i>
+              <span>Apr 10, 2024</span>
+            </div>
+            <h3 class="campaign-title">Eid-ul-Fitr Blood Camp</h3>
+            <p class="campaign-description">Special camp ahead of Eid holidays when blood is most needed.</p>
+            <div class="campaign-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span>CSC Hospital, Agrabad</span>
+            </div>
+            <a href="#" class="register-btn">Register Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="footer-container">
+        <div class="footer-about">
+          <div class="footer-logo">
+            <img src="./363834705_3390671587914144_8701399567104923369_n-removebg-preview.png" alt="CUET Blood Bank Logo" class="footer-logo-img">
+            <span class="footer-logo-text">CUET Blood Bank</span>
+          </div>
+          <p class="footer-about-text">Connecting donors with recipients to save lives across Chittagong University.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        
+        <div class="footer-links">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="./index.html">Home</a></li>
+            <li><a href="./campaigns.html">Campaigns</a></li>
+            <li><a href="./teams.html">Our Team</a></li>
+            <li><a href="./aboutus.html">About Us</a></li>
+          </ul>
+        </div>
+        
+        <div class="footer-contact">
+          <h3>Contact</h3>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>CUET, Raozan, Chittagong</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone-alt"></i>
+            <span>+880 1234 567890</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>contact@cuetbloodbank.org</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2024 CUET Blood Bank. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="mobile-menu-header">
+      <button class="close-menu-btn" id="closeMenuBtn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="mobile-nav-links">
+      <a href="./index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="./campaigns.html"><i class="fas fa-calendar-alt"></i> Campaigns</a>
+      <a href="./teams.html"><i class="fas fa-users"></i> Teams</a>
+      <a href="./aboutus.html"><i class="fas fa-info-circle"></i> About Us</a>
+    </nav>
+    
+    <div class="mobile-auth-buttons">
+      <a href="./signin.html" class="mobile-signin">Sign In</a>
+      <a href="./signup.html" class="mobile-signup">Sign Up</a>
+    </div>
+  </div>
+  
+  <div class="backdrop" id="backdrop"></div>
+
+  <script>
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const closeMenuBtn = document.getElementById('closeMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const backdrop = document.getElementById('backdrop');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.add('open');
+      backdrop.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    });
+    
+    closeMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+    
+    backdrop.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      backdrop.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  </script>
+</body>
+</html>

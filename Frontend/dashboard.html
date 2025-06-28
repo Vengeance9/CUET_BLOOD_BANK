@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - CUET Blood Bank</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f3f4f6;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* Sidebar Styles */
+    .sidebar-container {
+      display: flex;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: white;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      position: fixed;
+      height: 100%;
+      transition: all 0.3s ease;
+      z-index: 100;
+    }
+
+    .sidebar-text-container {
+      padding: 1rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .sidebar-text {
+      display: flex;
+      align-items: center;
+    }
+
+    .sidebar-text img {
+      height: 40px;
+      margin-right: 0.5rem;
+    }
+
+    .cuet-blood-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #b91c1c;
+    }
+
+    nav {
+      padding: 1rem;
+    }
+
+    .nav-ul {
+      list-style: none;
+      margin-top: 0.5rem;
+    }
+
+    .nav-ul li {
+      margin-bottom: 0.5rem;
+    }
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      padding: 0.75rem;
+      border-radius: 6px;
+      color: #262b34;
+      font-weight: 500;
+      transition: background-color 0.2s ease;
+    }
+
+    .sidebar-link:hover {
+      background-color: rgba(180, 0, 0, 0.1);
+    }
+
+    .sidebar-link i {
+      color: #000;
+      margin-right: 0.5rem;
+      width: 20px;
+      text-align: center;
+    }
+
+    /* Main Content Styles */
+    .main-content {
+      flex: 1;
+      margin-left: 250px;
+      transition: margin-left 0.3s ease;
+    }
+
+    .header-container {
+      background-color: white;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      padding: 1.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .header-container h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #111827;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .notification-icon {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .notification-badge {
+      position: absolute;
+      top: -3px;
+      right: -3px;
+      width: 8px;
+      height: 8px;
+      background-color: #ef4444;
+      border-radius: 50%;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .user-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .user-name {
+      font-weight: 500;
+    }
+
+    /* Dashboard Content */
+    .dashboard-content {
+      padding: 1.5rem;
+    }
+
+    /* Stats Cards */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      display: flex;
+      align-items: center;
+    }
+
+    .stat-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+    }
+
+    .stat-icon.primary {
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .stat-icon.secondary {
+      background-color: rgba(59, 130, 246, 0.1);
+      color: #3b82f6;
+    }
+
+    .stat-icon.tertiary {
+      background-color: rgba(16, 185, 129, 0.1);
+      color: #10b981;
+    }
+
+    .stat-info h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-info p {
+      color: #6b7280;
+      font-size: 0.875rem;
+    }
+
+    /* Recent Activity */
+    .activity-section, .appointments-section {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: #111827;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 1rem 0;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .activity-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+
+    .activity-details h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-details p {
+      color: #6b7280;
+      font-size: 0.875rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-time {
+      color: #9ca3af;
+      font-size: 0.75rem;
+    }
+
+    /* Appointments Table */
+    .appointments-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .appointments-table th, 
+    .appointments-table td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .appointments-table th {
+      font-weight: 600;
+      color: #6b7280;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+
+    .status-confirmed {
+      background-color: #d1fae5;
+      color: #065f46;
+    }
+
+    .action-link {
+      color: #ef4444;
+      font-size: 0.875rem;
+      cursor: pointer;
+    }
+
+    .action-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Mobile Menu Button */
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: #4b5563;
+      margin-right: 1rem;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 1024px) {
+      .sidebar {
+        transform: translateX(-100%);
+        position: fixed;
+        z-index: 1000;
+      }
+
+      .sidebar.active {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-container {
+        padding: 1rem;
+      }
+
+      .dashboard-content {
+        padding: 1rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .header-actions {
+        gap: 1rem;
+      }
+
+      .user-name {
+        display: none;
+      }
+
+      .appointments-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar-container">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+      <div class="sidebar-text-container">
+        <div class="sidebar-text">
+          <img src="https://via.placeholder.com/40" alt="">
+          <span class="cuet-blood-text">CUET Blood Bank</span>
+        </div>
+      </div>
+      <nav>
+        <ul class="nav-ul">
+          <li>
+            <a href="#" class="sidebar-link active">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="./profile.html" class="sidebar-link">
+              <i class="fas fa-user"></i> My Profile
+            </a>
+          </li>
+          <li>
+            <a href="./donorForReq.html" class="sidebar-link">
+              <i class="fas fa-heartbeat"></i>Donation for me
+            </a>
+          </li>
+          <li>
+            <a href="./Notification.html" class="sidebar-link">
+              <i class="fas fa-hand-holding-medical"></i> Blood Requests
+            </a>
+          </li>
+          <li>
+            <a href="./campaigns.html" class="sidebar-link">
+              <i class="fas fa-calendar-alt"></i> Campaigns
+            </a>
+          </li>
+          <li>
+            <a href="#" id="logout" class="sidebar-link">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Top Navigation -->
+      <header class="header-container">
+        <button class="mobile-menu-btn" id="mobileMenuBtn">
+          <i class="fas fa-bars"></i>
+        </button>
+        <h1>Dashboard</h1>
+        <div class="header-actions">
+          <div class="notification-icon">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge"></span>
+          </div>
+          <div class="user-profile">
+            <!-- <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
+             -->
+            <span class="user-name"></span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <main class="dashboard-content">
+        <!-- Stats Cards -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon primary">
+              <i class="fas fa-heartbeat"></i>
+            </div>
+            <div class="stat-info">
+              <h3 class="donation-count"></h3>
+              <p>Total Donations</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon secondary">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-info">
+              <h3>15</h3>
+              <p>Lives Saved</p>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon tertiary">
+              <i class="fas fa-medal"></i>
+            </div>
+            <div class="stat-info">
+              <h3 class="donationdate"></h3>
+              <p>Last Donation</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Activity -->
+        <div class="activity-section">
+          <h2 class="section-title">Recent Activities</h2>
+          <div class="activity-list">
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-phone-alt"></i>
+              </div>
+              <div class="activity-details">
+                <h4>Blood request from Chittagong Medical</h4>
+                <p>2 B+ donors needed, urgent</p>
+                <p class="activity-time">10 minutes ago</p>
+              </div>
+            </div>
+            <div class="activity-item">
+              <div class="activity-icon">
+                <i class="fas fa-calendar-check"></i>
+              </div>
+              <div class="activity-details">
+                <h4>Upcoming blood drive</h4>
+                <p>CUET Campus, February 15</p>
+                <p class="activity-time">2 hours ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="appointments-section">
+          <h2 class="section-title">Upcoming Appointments</h2>
+          <table class="appointments-table">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+             
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+
+    mobileMenuBtn.addEventListener('click', function() {
+      sidebar.classList.toggle('active');
+    });
+
+    // Close sidebar when clicking outside on mobile
+    document.addEventListener('click', function(event) {
+      if (window.innerWidth <= 1024) {
+        const isClickInsideSidebar = sidebar.contains(event.target);
+        const isClickOnMenuButton = mobileMenuBtn.contains(event.target);
+        
+        if (!isClickInsideSidebar && !isClickOnMenuButton) {
+          sidebar.classList.remove('active');
+        }
+      }
+    });
+
+
+  const appointmentsContainer = document.querySelector('.appointments-table');
+
+  async function loadUpcomingAppointments() {
+    const token = localStorage.getItem('token');
+    console.log(`Token: ${token}`);
+    if (!token) return;
+
+    try{
+      const res=await fetch('http://localhost:5000/api/dashboard', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+      const data = await res.json();
+      if(data.data.user){
+        console.log(data.data.user.firstName)
+      document.querySelector('.donation-count').textContent = data.data.user.donationCount;
+      document.querySelector('.user-name').textContent = data.data.user.firstName;
+      console.log(data.data.user.firstName)}
+      else{
+        console.log(`User data missing ${data.data.user.firstName}`)
+      }
+
+      console.log(`User data loaded: ${data.data.user.firstName}, Donations: ${data.data.user.donationCount}`);
+    }
+    catch(err){
+      console.log(err)
+    }
+
+    try {
+      const response = await fetch('http://localhost:5000/api/offers/my/appointments', {
+        headers: {
+          'Authorization': 'Bearer ' + token
+        }
+      });
+
+      const appointments = await response.json();
+
+      if (!appointments.length) {
+        appointmentsContainer.innerHTML = `
+          <tr><td colspan="4" style="text-align:center">No upcoming appointments</td></tr>
+        `;
+        return;
+      }
+     
+
+      const filtered=appointments.filter(appt=>appt.status==='Confirmed')
+
+      appointmentsContainer.innerHTML = filtered.map(appt => `
+        <tr>
+          <td>${new Date(appt.appointmentTime).toLocaleDateString()}</td>
+          <td>${new Date(appt.appointmentTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+          <td>${appt.location}</td>
+          <td>
+            <span class="status-badge status-${appt.status.toLowerCase()}">
+              ${appt.status}
+            </span>
+          </td>
+          <td>
+            <a class="action-link" onclick="cancelAppointment('${appt._id}')">Cancel</a>
+          </td>
+         
+        </tr>
+      `).join('');
+
+    } catch (err) {
+      console.error('Error loading appointments:', err);
+      appointmentsContainer.innerHTML = `
+        <tr><td colspan="4" style="text-align:center; color: red;">Failed to load appointments</td></tr>
+      `;
+    }
+  }
+
+  function cancelAppointment(offerId) {
+    if (!confirm("Are you sure you want to cancel this appointment?")) return;
+
+    fetch(`http://localhost:5000/api/offers/${offerId}/cancel`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': 'Bearer ' + localStorage.getItem('token'),
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(res => res.json())
+    .then(() => {
+      alert("Appointment canceled");
+      location.reload();
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Failed to cancel appointment");
+    });
+  }
+
+  
+  window.addEventListener('load', () => {
+    loadUpcomingAppointments();
+  });
+
+    // Logout functionality
+    document.getElementById('logout').addEventListener('click', function(e) {
+      e.preventDefault();
+      localStorage.removeItem('isLoggedIn');
+      window.location.href = './signin.html';
+    });
+
+    // Highlight active link
+    const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+    const navLinks = document.querySelectorAll('.sidebar-link');
+
+    navLinks.forEach(link => {
+      const linkHref = link.getAttribute('href');
+      if (linkHref === currentPage || (currentPage === 'index.html' && linkHref === '#')) {
+        link.classList.add('active');
+      } else {
+        link.classList.remove('active');
+      }
+    });
+
+    // Responsive adjustments
+    function handleResize() {
+      if (window.innerWidth > 1024) {
+        sidebar.classList.remove('active');
+      }
+    }
+
+    window.addEventListener('resize', handleResize);
+  </script>
+</body>
+</html>
