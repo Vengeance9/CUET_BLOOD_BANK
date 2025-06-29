@@ -32,7 +32,7 @@ const bloodRequestSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    appintmentTime: {
+    appointmentTime: {
       type: Date,
       required: true,
     },

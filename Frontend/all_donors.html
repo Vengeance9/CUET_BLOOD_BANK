@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUET Blood Bank - All Donors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9fafb;
+            min-height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Header Styles */
+        header {
+            margin-bottom: 32px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #dc2626;
+            margin: 0;
+        }
+
+        .logo p {
+            color: #6b7280;
+            margin: 4px 0 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .nav-link {
+            color: #4b5563;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link:hover {
+            color: #dc2626;
+        }
+
+        .nav-link i {
+            margin-right: 4px;
+        }
+
+        /* Page Title and Controls */
+        .page-header {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 32px;
+        }
+
+        .page-title h2 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0 0 4px;
+        }
+
+        .page-title p {
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .controls {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+
+        @media (min-width: 768px) {
+            .page-header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .controls {
+                flex-direction: row;
+                width: auto;
+                gap: 16px;
+            }
+        }
+
+        /* Search and Filter */
+        .search-container {
+            display: flex;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            flex-grow: 1;
+        }
+
+        .search-container:focus-within {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+        }
+
+        .search-input {
+            padding: 8px 16px;
+            border: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+
+        .search-button {
+            background-color: #dc2626;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .search-button:hover {
+            background-color: #b91c1c;
+        }
+
+        .blood-group-filter {
+            background-color: white;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            min-width: 160px;
+        }
+
+        .blood-group-filter:focus {
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.3);
+        }
+
+        /* Donors Grid */
+        .donors-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .donors-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .donors-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Donor Card */
+        .donor-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .donor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .donor-content {
+            padding: 24px;
+        }
+
+        .donor-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 24px;
+        }
+
+        .donor-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1f2937;
+            margin: 0 0 4px;
+        }
+
+        .donor-email {
+            color: #6b7280;
+            margin: 0;
+        }
+
+        .blood-group {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-weight: bold;
+            color: white;
+            font-size: 16px;
+        }
+
+        .donor-details {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .detail-icon {
+            color: #6b7280;
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        .detail-text {
+            color: #4b5563;
+            margin: 0;
+        }
+
+        .donor-actions {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .action-button {
+            background: none;
+            border: none;
+            color: #3b82f6;
+            cursor: pointer;
+            transition: color 0.3s;
+            font-size: 14px;
+        }
+
+        .action-button:hover {
+            color: #1d4ed8;
+        }
+
+        .action-button.message {
+            color: #dc2626;
+        }
+
+        .action-button.message:hover {
+            color: #b91c1c;
+        }
+
+        .action-button.history {
+            color: #10b981;
+        }
+
+        .action-button.history:hover {
+            color: #059669;
+        }
+
+        /* Blood Group Colors */
+        .bg-Aplus {
+            background-color: #dc2626;
+        }
+
+        .bg-Aminus {
+            background-color: #f87171;
+        }
+
+        .bg-Bplus {
+            background-color: #2563eb;
+        }
+
+        .bg-Bminus {
+            background-color: #60a5fa;
+        }
+
+        .bg-ABplus {
+            background-color: #7c3aed;
+        }
+
+        .bg-ABminus {
+            background-color: #a78bfa;
+        }
+
+        .bg-Oplus {
+            background-color: #059669;
+        }
+
+        .bg-Ominus {
+            background-color: #34d399;
+        }
+
+        /* No Donors Message */
+        .no-donors {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .no-donors-icon {
+            font-size: 40px;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .no-donors-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #6b7280;
+            margin: 0 0 8px;
+        }
+
+        .no-donors-text {
+            color: #9ca3af;
+            margin: 0;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .pagination-nav {
+            display: inline-flex;
+            border-radius: 6px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .pagination-button {
+            padding: 8px 16px;
+            border: 1px solid #d1d5db;
+            background-color: white;
+            color: #4b5563;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .pagination-button:hover {
+            background-color: #f9fafb;
+        }
+
+        .pagination-button.prev {
+            border-radius: 6px 0 0 6px;
+        }
+
+        .pagination-button.next {
+            border-radius: 0 6px 6px 0;
+        }
+
+        .page-buttons {
+            display: flex;
+        }
+
+        .page-button {
+            padding: 8px 16px;
+            border-top: 1px solid #d1d5db;
+            border-bottom: 1px solid #d1d5db;
+            border-left: none;
+            border-right: none;
+            background-color: white;
+            color: #4b5563;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .page-button:hover {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="header-content">
+                <div class="logo">
+                    <h1>CUET Blood Bank</h1>
+                    <p>Saving Lives Together</p>
+                </div>
+                <div class="nav-links">
+                    <a href="./dashboard.html" class="nav-link">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Page Title and Controls -->
+        <div class="page-header">
+            <div class="page-title">
+                <h2>All Blood Donors</h2>
+                <p>List of all registered blood donors</p>
+            </div>
+            <div class="controls">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Search donors..." class="search-input">
+                    <button class="search-button">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <select id="bloodGroupFilter" class="blood-group-filter">
+                    <option value="">All Blood Groups</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Donors Grid -->
+        <div id="donorsContainer" class="donors-grid">
+            <!-- Donor cards will be dynamically inserted here -->
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <nav class="pagination-nav">
+                <button id="prevPage" class="pagination-button prev">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div class="page-buttons">
+                    <button class="page-button">1</button>
+                    <button class="page-button">2</button>
+                    <button class="page-button">3</button>
+                </div>
+                <button id="nextPage" class="pagination-button next">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        // Sample donor data (in a real app, this would come from an API)
+        const donors = [
+            {
+                id: 1,
+                name: "Md. Rahim Khan",
+                email: "rahim@cuet.ac.bd",
+                phone: "01712345678",
+                address: "CUET Staff Quarter, Road 3, Chittagong",
+                bloodGroup: "A+",
+                lastDonation: "2023-05-15",
+                status: "active"
+            },
+            {
+                id: 2,
+                name: "Fatema Akter",
+                email: "fatema@cuet.ac.bd",
+                phone: "01898765432",
+                address: "CUET Girls Hall, Room 305, Chittagong",
+                bloodGroup: "B+",
+                lastDonation: "2023-06-20",
+                status: "active"
+            },
+            {
+                id: 3,
+                name: "Abdul Karim",
+                email: "karim@cuet.ac.bd",
+                phone: "01911223344",
+                address: "CUET Boys Hall, Room 112, Chittagong",
+                bloodGroup: "O+",
+                lastDonation: "2023-04-10",
+                status: "active"
+            },
+            {
+                id: 4,
+                name: "Nusrat Jahan",
+                email: "nusrat@cuet.ac.bd",
+                phone: "01655667788",
+                address: "CUET Girls Hall, Room 208, Chittagong",
+                bloodGroup: "AB+",
+                lastDonation: "2023-07-05",
+                status: "active"
+            },
+            {
+                id: 5,
+                name: "Kamal Hossain",
+                email: "kamal@cuet.ac.bd",
+                phone: "01567891234",
+                address: "CUET Boys Hall, Room 405, Chittagong",
+                bloodGroup: "A-",
+                lastDonation: "2023-03-18",
+                status: "active"
+            },
+            {
+                id: 6,
+                name: "Shirin Akter",
+                email: "shirin@cuet.ac.bd",
+                phone: "01788990011",
+                address: "CUET Girls Hall, Room 101, Chittagong",
+                bloodGroup: "O-",
+                lastDonation: "2023-08-12",
+                status: "active"
+            },
+            {
+                id: 7,
+                name: "Md. Sajjad Hossain",
+                email: "sajjad@cuet.ac.bd",
+                phone: "01833445566",
+                address: "CUET Staff Quarter, Road 5, Chittagong",
+                bloodGroup: "B-",
+                lastDonation: "2023-02-28",
+                status: "active"
+            },
+            {
+                id: 8,
+                name: "Tasnim Rahman",
+                email: "tasnim@cuet.ac.bd",
+                phone: "01977889900",
+                address: "CUET Girls Hall, Room 312, Chittagong",
+                bloodGroup: "AB-",
+                lastDonation: "2023-01-15",
+                status: "active"
+            }
+        ];
+
+        // Function to render donor cards
+        function renderDonors(donorsToRender) {
+            const container = document.getElementById('donorsContainer');
+            container.innerHTML = '';
+
+            if (donorsToRender.length === 0) {
+                container.innerHTML = `
+                    <div class="no-donors">
+                        <i class="fas fa-user-slash no-donors-icon"></i>
+                        <h3 class="no-donors-title">No donors found</h3>
+                        <p class="no-donors-text">Try adjusting your search or filter</p>
+                    </div>
+                `;
+                return;
+            }
+
+            donorsToRender.forEach(donor => {
+                const bloodGroupClasses = {
+                    'A+': 'bg-Aplus',
+                    'A-': 'bg-Aminus',
+                    'B+': 'bg-Bplus',
+                    'B-': 'bg-Bminus',
+                    'AB+': 'bg-ABplus',
+                    'AB-': 'bg-ABminus',
+                    'O+': 'bg-Oplus',
+                    'O-': 'bg-Ominus'
+                };
+
+                const card = document.createElement('div');
+                card.className = 'donor-card';
+                card.innerHTML = `
+                    <div class="donor-content">
+                        <div class="donor-header">
+                            <div>
+                                <h3 class="donor-name">${donor.name}</h3>
+                                <p class="donor-email">${donor.email}</p>
+                            </div>
+                            <div class="blood-group ${bloodGroupClasses[donor.bloodGroup]}">
+                                ${donor.bloodGroup}
+                            </div>
+                        </div>
+                        
+                        <div class="donor-details">
+                            <div class="detail-item">
+                                <i class="fas fa-phone-alt detail-icon"></i>
+                                <p class="detail-text">${donor.phone}</p>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-map-marker-alt detail-icon"></i>
+                                <p class="detail-text">${donor.address}</p>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-calendar-alt detail-icon"></i>
+                                <p class="detail-text">Last donated: ${formatDate(donor.lastDonation)}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="donor-actions">
+                            <button class="action-button message">
+                                <i class="fas fa-envelope"></i> Message
+                            </button>
+                            <button class="action-button">
+                                <i class="fas fa-phone"></i> Call
+                            </button>
+                            <button class="action-button history">
+                                <i class="fas fa-history"></i> History
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Helper function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'short', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+
+        // Filter and search functionality
+        function filterDonors() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const bloodGroupFilter = document.getElementById('bloodGroupFilter').value;
+            
+            let filteredDonors = donors.filter(donor => {
+                const matchesSearch = donor.name.toLowerCase().includes(searchTerm) ||
+                                      donor.email.toLowerCase().includes(searchTerm) ||
+                                      donor.phone.includes(searchTerm);
+                
+                const matchesBloodGroup = bloodGroupFilter === '' || donor.bloodGroup === bloodGroupFilter;
+                
+                return matchesSearch && matchesBloodGroup;
+            });
+            
+            renderDonors(filteredDonors);
+        }
+
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('input', filterDonors);
+        document.getElementById('bloodGroupFilter').addEventListener('change', filterDonors);
+
+        // Initial render
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDonors(donors);
+        });
+
+        // Pagination functionality (simplified for this example)
+        document.querySelectorAll('.page-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // In a real app, this would fetch the corresponding page of data
+                alert('Pagination would load more donors in a real application');
+            });
+        });
+
+        document.getElementById('prevPage').addEventListener('click', () => {
+            alert('Previous page would be loaded in a real application');
+        });
+
+        document.getElementById('nextPage').addEventListener('click', () => {
+            alert('Next page would be loaded in a real application');
+        });
+    </script>
+</body>
+</html>
