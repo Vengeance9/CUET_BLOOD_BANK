@@ -1,6 +1,8 @@
 const BloodOffer = require('../models/BloodOffer');
 const User = require('../models/User');
 const chalk = require('chalk');
+const mongoose = require('mongoose');
+const BloodRequest = require('../models/BloodRequest');
 
 exports.getAllBloodOffers = async (req, res) => {
     try {
@@ -9,7 +11,7 @@ exports.getAllBloodOffers = async (req, res) => {
       let query = { status: 'Pending' };
   
       if (requestId) {
-        query.requestId = mongoose.Types.ObjectId(requestId);
+        query.requestId = new mongoose.Types.ObjectId(requestId);
       }
   
       const offers = await BloodOffer.find(query)
@@ -19,7 +21,7 @@ exports.getAllBloodOffers = async (req, res) => {
       res.status(200).json(offers);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500)
     }
   };
 
@@ -30,7 +32,7 @@ exports.getAllBloodOffers = async (req, res) => {
     try {
       const user = await User.findById(userId);
       if (!user) {
-        return res.status(404).json({ message: 'User not found' });
+        return res.status(404).json({ message: 'User pawa jainai' });
       }
 
       const newOffer = new BloodOffer({
@@ -39,8 +41,9 @@ exports.getAllBloodOffers = async (req, res) => {
         city,
         location,
         contactNumber,
-        requestId: requestId ? mongoose.Types.ObjectId(requestId) : null,
+        requestId: requestId ? new mongoose.Types.ObjectId(requestId) : null,
       });
+      console.log(chalk.green.bold('requestId: ' + requestId));
 
       await newOffer.save();
 
@@ -50,7 +53,7 @@ exports.getAllBloodOffers = async (req, res) => {
       });
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).json({ message: 'Ekhane error hoyeche' });
     }
   }
 
@@ -72,15 +75,32 @@ exports.getAllBloodOffers = async (req, res) => {
       res.status(200).json(offers);
     } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).json({ message: 'Server e error hoyeche' });
     }
   };
+
+  exports.getrequestIds = async (req, res) => {
+    try{
+      const userId = req.user.id;
+
+      const offers = await BloodOffer.find({ user: userId, status: 'Pending' });
+
+      return res.status(200).json(offers)
+      
+    }catch (err) {
+      console.error(err.message);
+      res.status(500).json({ message: 'Server e error hoyeche' });
+    }
+  }
 
  
 exports.acceptDonor = async (req, res) => {
   try {
     const { requestId, offerId } = req.body;
     const userId = req.user.id;
+
+    console.log(chalk.blue.bold('Request ID: ' + requestId));
+    console.log(chalk.blue.bold('Offer ID: ' + offerId));
 
     const request = await BloodRequest.findById(requestId);
 
@@ -93,13 +113,16 @@ exports.acceptDonor = async (req, res) => {
       return res.status(404).json({ message: 'Offer not found for this request' });
     }
 
-    request.status = 'Fulfilled';
-    await request.save();
-
+  
     offer.status = 'Confirmed';
+   
+
+    offer.appointmentTime = request.appointmentTime;
+
     await offer.save();
 
-    request.appointmentTime = offer.appointmentTime;
+    console.log(chalk.green.bold('Offer appointment time set to: ' + offer.appointmentTime));
+    console.log('Donor accepted successfully');
 
     res.json({
       message: 'Donor accepted successfully',
@@ -109,27 +132,48 @@ exports.acceptDonor = async (req, res) => {
 
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
 exports.getUpcomingDonationAppointments = async (req, res) => {
+  console.log(chalk.green.bold('GETTING UPCOMING APPOINTMENTS FOR USER'));
   try {
     const userId = req.user.id;
 
     const appointments = await BloodOffer.find({
       user: userId,
-      status: { $in: ['Confirmed', 'Pending'] },
-      status:{$ne:'Cancelled'}
-    }).select('location status updatedAt appointmentTime user')
-      .populate('user', 'firstName donationCount lastDonated');
+      $and: [
+        { status: { $in: ['Confirmed', 'Pending'] } },
+        { status: { $ne: 'Cancelled' } }
+      ]
+    }).select('status updatedAt user requestId')
+      .populate('user', 'firstName donationCount lastDonated')
+      .populate('requestId', 'appointmentTime') 
+      ;
 
       console.log(chalk.green.bold('SENDING UPCOMING APPOINTMENTS DATA'));
+      // console.log(appointments.user.lastDonated);
+
+      for(const appointment of appointments) {
+        console.log(`requestId: ${appointment.requestId ? appointment.requestId._id : 'N/A'}`);
+        const request = await BloodRequest.findById(appointment.requestId);
+        const time = request ? request.appointmentTime : null;
+
+        appointment.appointmentTime = time ? time.toISOString() : null;
+        appointment.location = request ? request.location : 'N/A';
+
+        console.log(chalk.blue.bold(`Appointment Time: ${appointment.appointmentTime}`));
+
+
+      }
+
+      
 
     res.status(200).json(appointments);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: 'Server error' });
   }
 };
 
@@ -158,6 +202,6 @@ exports.cancelDonationAppointment = async (req, res) => {
     res.json({ message: 'Appointment cancelled successfully', offer });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send('Server error');
+    res.status(500).json({ message: 'Server error' });
   }
 };

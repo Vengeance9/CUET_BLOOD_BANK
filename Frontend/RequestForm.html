@@ -317,6 +317,10 @@
             <label for="time">Appointment Time</label>
             <input type="time" id="time" name="time" required>
           </div>
+          <div class="form-group">
+            <label for="reason">Reason</label>
+            <input type="text" id="reason" name="reason" required>
+          </div>
 
          
 
@@ -342,6 +346,7 @@
       const city = document.getElementById('city').value.trim();
       const date = document.getElementById('date').value.trim();
       const time = document.getElementById('time').value.trim();
+      const reason = document.getElementById('reason').value.trim();
   
     
       if (!bloodType || !city || !location) {
@@ -363,6 +368,7 @@
         city,
         location,
         contactNumber: phone,
+        reason,
         date,
         time,
       };
@@ -379,10 +385,14 @@
   
         const result = await response.json();
 
-        const requestId = result._id;
+        const requestId = result.id;
+
+        console.log('Request ID:', requestId);
 
 
         localStorage.setItem('currentRequestId', requestId);
+
+        console.log('Current Request ID stored:', localStorage.getItem('currentRequestId'));
   
         if (!response.ok) {
           throw new Error(result.message || 'Failed to create request');

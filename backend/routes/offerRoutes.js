@@ -7,14 +7,17 @@ const {
   getOffersByRequestId,
   acceptDonor,
   getUpcomingDonationAppointments,
-  cancelDonationAppointment
+  cancelDonationAppointment,
+  getrequestIds
 } = require('../controllers/offerController');
 
 router.get('/', protect, getAllBloodOffers);
-router.post('/',protect,createBloodOffer)
+router.post('/donate',protect,createBloodOffer)
 router.get('/request', protect, getOffersByRequestId);
 router.post('/accept', protect, acceptDonor);
+router.get('/get',protect, getrequestIds)
 router.get('/my/appointments', protect, getUpcomingDonationAppointments);
 router.put('/:id/cancel', protect, cancelDonationAppointment);
+router.get('/myOffers', protect, getrequestIds);
 
 module.exports = router;

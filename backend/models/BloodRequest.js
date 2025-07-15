@@ -22,7 +22,6 @@ const bloodRequestSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-   
     status: {
       type: String,
       enum: ['Pending', 'Fulfilled', 'Cancelled'],
@@ -36,6 +35,9 @@ const bloodRequestSchema = new mongoose.Schema(
       type: Date,
       required: true,
     },
+    reason:{
+      type:String,
+    }
   },
   {
     timestamps: true,

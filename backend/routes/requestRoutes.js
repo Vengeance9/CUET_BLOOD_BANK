@@ -10,6 +10,6 @@ const {
 
 router.post('/', protect, createBloodRequest);
 
-router.get('/', protect, getAllBloodRequests); 
+router.get('/get', protect, getAllBloodRequests); 
 
 module.exports = router;

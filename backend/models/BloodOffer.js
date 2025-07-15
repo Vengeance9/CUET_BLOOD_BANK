@@ -28,7 +28,7 @@ const bloodOfferSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Pending', 'Confirmed', 'Rejected'],
+      enum: ['Pending', 'Confirmed', 'Rejected','Completed'],
       default: 'Pending',
     },
     requestId: {
@@ -38,7 +38,7 @@ const bloodOfferSchema = new mongoose.Schema(
     },
     appointmentTime: {
       type: Date,
-      required: true,
+      
     }
   },
   {

@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema(
     enum: ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'],
     required: [true, 'Blood group is required'],
    },
+   isDonor:{
+    type: Boolean,
+    default: false,
+   },
     isAdmin: {
       type: Boolean,
       default: false,
@@ -45,10 +49,7 @@ const userSchema = new mongoose.Schema(
     lastDonated:{
       Type:Date,
     },
-    avatar: {
-      type: String, 
-      default: null
-    }
+    
 
   },
   {

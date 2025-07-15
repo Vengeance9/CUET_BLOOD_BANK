@@ -1,6 +1,7 @@
 
 const BloodRequest = require('../models/BloodRequest');
 const User = require('../models/User');
+const BloodOffer = require('../models/BloodOffer');
 
 exports.createBloodRequest = async (req, res) => {
   try {
@@ -11,6 +12,7 @@ exports.createBloodRequest = async (req, res) => {
       city,
       location,
       contactNumber,
+      reason,
       date,
       time
     } = req.body;
@@ -33,6 +35,7 @@ exports.createBloodRequest = async (req, res) => {
       bloodGroup,
       city,
       location,
+      reason,
       contactNumber,
       appointmentTime
     });
@@ -42,6 +45,7 @@ exports.createBloodRequest = async (req, res) => {
     res.status(201).json({
       success: true,
       data: newRequest,
+      id: newRequest._id,
     });
   } catch (err) {
     console.error(err.message);
@@ -53,8 +57,12 @@ exports.getAllBloodRequests = async (req, res) => {
   try {
 
     const { city, bloodGroup } = req.query;
+    const userId = req.user.id;
 
-    let query = { status: 'Pending' };
+    let query = { 
+      status: 'Pending' ,
+      user:{$ne: req.user.id} 
+    };
 
     if (city) {
       query.city = city; 
@@ -62,9 +70,24 @@ exports.getAllBloodRequests = async (req, res) => {
     if (bloodGroup) {
       query.bloodGroup = bloodGroup;
     }
+
+    const userOfferedRequests = await BloodOffer.find({ user: userId })
+      .distinct('requestId');
+
+    const confirmedOfferedRequests = await BloodOffer.find({
+      user: userId,
+      status: 'Confirmed'
+    }).distinct('requestId');
+    
+    query._id = { $nin: confirmedOfferedRequests };
+
     const requests = await BloodRequest.find(query)
       .populate('user', 'firstName lastName') 
       .sort({ createdAt: -1 });
+
+    
+      
+      
 
     res.status(200).json(requests);
   } catch (err) {

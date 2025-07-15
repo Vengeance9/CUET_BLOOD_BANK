@@ -15,9 +15,14 @@
     }
 
     body {
-      background-color: #f3f4f6;
+      font-family: 'Poppins', 'Segoe UI', Roboto, -apple-system, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f8f9fa;
       color: #333;
-      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     a {
@@ -232,17 +237,113 @@
       color: #111827;
     }
 
+    /* Root Variables (used in header styles) */
+:root {
+  --primary: #d32f2f;
+  --primary-dark: #b71c1c;
+  --primary-light: #ff6659;
+  --secondary: #2e7d32;
+  --dark: #212121;
+  --light: #f5f5f5;
+}
+
+/* Base Styles (relevant for header) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Segoe UI', Roboto, -apple-system, sans-serif;
+}
+
+/* Header Styles */
+.main-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  margin-right: 2px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.main-header h1 {
+  margin: -16px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #3d1c1c;
+
+}
+
+.main-nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+}
+
+.nav-link.active {
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+}
+
     .activity-item {
       display: flex;
       align-items: flex-start;
       padding: 1rem 0;
       border-bottom: 1px solid #e5e7eb;
+      line-height: 3;
     }
 
     .activity-icon {
       width: 40px;
       height: 40px;
-      border-radius: 50%;
+      border-radius: 15%;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -250,17 +351,50 @@
       background-color: rgba(239, 68, 68, 0.1);
       color: #ef4444;
     }
+    .logo-icon {
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 5px;
+      background-color: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+    }
+    .activity-icon-sb {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 1rem;
+      background-color: rgb(255, 255, 255);
+      color: #ef4444;
+    }
 
-    .activity-details h4 {
+    .activity-item h4 {
       font-weight: 600;
       margin-bottom: 0.25rem;
     }
 
-    .activity-details p {
-      color: #6b7280;
+    .activity-item p {
+      font-weight: 600;
+      color: #4a4f59;
       font-size: 0.875rem;
       margin-bottom: 0.25rem;
     }
+
+    .activity-item strong{
+      color: #f56464;
+    }
+    .activity-item img{
+      margin-left: 12px;
+      width: 55px;
+    }
+
+    
 
     .activity-time {
       color: #9ca3af;
@@ -322,6 +456,232 @@
       margin-right: 1rem;
     }
 
+    /* Root Variables (used in sidebar styles) */
+:root {
+  --primary: #d32f2f;
+  --primary-dark: #b71c1c;
+  --primary-light: #ff6659;
+  --secondary: #2e7d32;
+  --dark: #212121;
+  --light: #f5f5f5;
+}
+
+      /* Base Styles for Sidebar */
+      * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar-text-container {
+  padding: 1.5rem 1rem;
+  background: linear-gradient(90deg, #b91c1c 0%, #dc2626 100%);
+  border-bottom: 2px solid #991b1b;
+}
+
+.sidebar-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar-text img {
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuet-blood-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+:root {
+      --primary: #B40000;
+      --secondary: #172554;
+      --accent: #F3F4F6;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-400: #9ca3af;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --red-50: #fef2f2;
+      --red-100: #fee2e2;
+      --red-800: #991b1b;
+    }
+    
+nav {
+  padding: 1.5rem 1rem;
+}
+
+.nav-ul {
+  list-style: none;
+}
+
+.nav-ul li {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  color: #1f2a44;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    
+    .primary-btn {
+      padding: 12px 24px;
+      font-style: var(--light);
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .primary-btn:hover {
+      background-color: var(--red-800);
+      cursor: pointer;
+    }
+    
+    .secondary-btn {
+      padding: 12px 24px;
+      border: 2px solid var(--primary);
+      color: var(--primary);
+      font-weight: 500;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+    
+    .secondary-btn:hover {
+      background-color: var(--red-50);
+      cursor: pointer;
+    }
+
+.sidebar-link:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  transform: translateX(5px);
+}
+
+.sidebar-link.active {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+  box-shadow: inset 4px 0 0 #b91c1c;
+}
+
+.sidebar-link i {
+  color: #1f2a44;
+  margin-right: 0.75rem;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: #b91c1c;
+}
+
+/* Hover Effect Animation */
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(185, 28, 28, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-link:hover::before {
+  left: 100%;
+}
+
+/* Mobile Menu Button (if used) */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4b5563;
+  margin-right: 1rem;
+}
+/* Additional Icon Style (specific to sidebar) */
+i {
+  margin-right: 8px;
+  width: 16px;
+  text-align: center;
+}
+
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.modal-content p{
+  font-size: 30px;
+}
+.blurred {
+  filter: blur(10px);
+}
+
     /* Responsive Styles */
     @media (max-width: 1024px) {
       .sidebar {
@@ -374,26 +734,53 @@
     }
   </style>
 </head>
+
+
+
+
 <body>
+  <div id="popup" class="modal">
+    <div class="modal-content">
+      <p>You are not logged in</p>
+      <a href="signin.html" style="color: #b92c10;">Login Now -></a>
+    </div>
+  </div>
+
+ 
+
+<div id="page-content">
+
+  <header class="main-header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="logo2.png" alt="Blood Drop Logo" class="logo">
+        <h1>CUET BLOOD BANK</h1>
+      </div>
+      <nav class="main-nav">
+
+       
+        <a href="./aboutus.html" class="nav-link">About Us</a>
+        <a href="./" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
   <div class="sidebar-container">
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-      <div class="sidebar-text-container">
-        <div class="sidebar-text">
-          <img src="https://via.placeholder.com/40" alt="">
-          <span class="cuet-blood-text">CUET Blood Bank</span>
-        </div>
-      </div>
+     
       <nav>
         <ul class="nav-ul">
           <li>
-            <a href="./home.html" class="sidebar-link active">
+            <a href="./home.html" class="sidebar-link">
               <i class="fas fa-home"></i> Home
             </a>
           </li>
           <li>
-            <a href="./profile.html" class="sidebar-link">
-              <i class="fas fa-user"></i> My Profile
+            <a href="./dashboard.html" class="sidebar-link active" style="background-color: #fef2f2;
+            color: #b91c1c;
+            font-weight: 600;
+            box-shadow: inset 4px 0 0 #b91c1c;">
+              <i class="fas fa-user"></i> Dashboard
             </a>
           </li>
           <li>
@@ -435,8 +822,7 @@
         <h1>Dashboard</h1>
         <div class="header-actions">
           <div class="notification-icon">
-            <i class="fas fa-bell"></i>
-            <span class="notification-badge"></span>
+            <img src="user.png" alt="" class="logo-icon">
           </div>
           <div class="user-profile">
             <!-- <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="user-avatar">
@@ -464,8 +850,8 @@
               <i class="fas fa-users"></i>
             </div>
             <div class="stat-info">
-              <h3>15</h3>
-              <p>Lives Saved</p>
+              <h3 class="request-count">15</h3>
+              <p>Total Requests</p>
             </div>
           </div>
           <div class="stat-card">
@@ -479,36 +865,49 @@
           </div>
         </div>
 
+
+
+
+
+
+        <!-- find blood or register as donor -->
+        <div class="activity-section" style="background-color: linear-gradient(90deg,green 50%, red 50%);
+        width: 450px;height: 250;padding-top: 0px;">
+          <div class="activity-section" style="display: flex;align-items: center;justify-content: center;
+          background-color:linear-gradient(135deg, (#ffffff)50%, (#8f101d)50%);
+          box-shadow: none;padding: 0px;margin-bottom: 0px;">
+            <img src="blood-transfusion.png" alt="" style="width: 100px;height: 100px;">
+            <img src="logo.webp" alt="" style="width: 100px;height: 130px;margin-left: 120px;">
+          </div>
+          <div class="hero-buttons" style="justify-content: space-around;">
+            <button onclick="registerAsDonor()" class="primary-btn">Register as a Donor</button>
+            <a href="./RequestForm.html" class="secondary-btn">Find Blood</a>
+          </div>
+        </div>
+
+
+
+
+
         <!-- Recent Activity -->
         <div class="activity-section">
-          <h2 class="section-title">Recent Activities</h2>
-          <div class="activity-list">
-            <div class="activity-item">
-              <div class="activity-icon">
-                <i class="fas fa-phone-alt"></i>
-              </div>
-              <div class="activity-details">
-                <h4>Blood request from Chittagong Medical</h4>
-                <p>2 B+ donors needed, urgent</p>
-                <p class="activity-time">10 minutes ago</p>
-              </div>
-            </div>
-            <div class="activity-item">
-              <div class="activity-icon">
-                <i class="fas fa-calendar-check"></i>
-              </div>
-              <div class="activity-details">
-                <h4>Upcoming blood drive</h4>
-                <p>CUET Campus, February 15</p>
-                <p class="activity-time">2 hours ago</p>
-              </div>
-            </div>
+         <div style="display: flex;border-bottom: #212121;">
+           <img src="medical-report.png" alt="Blood Donation Icon" class="activity-icon"></img><h2 class="section-title">&nbsp;&nbsp;Recent Activities</h2>
           </div>
+           <div class="activity-list">
+
+          </div>
+          
+          
         </div>
 
         
         <div class="appointments-section">
-          <h2 class="section-title">Upcoming Appointments</h2>
+          <div style="display: flex;">
+            <img src="appointment.png" alt="" class="activity-icon">
+            <h2 class="section-title">Upcoming Appointments</h2>
+          </div>
+          
           <table class="appointments-table">
             <thead>
               <tr>
@@ -527,9 +926,53 @@
       </main>
     </div>
   </div>
+</div>
 
   <script>
+
+async function registerAsDonor() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert("Please sign up or log in to register as a donor.");
+        window.location.href = './signup.html';
+      } else {
+        const token = localStorage.getItem('token');
+        if(!token){
+          window.location.href = './signup.html';
+        }
+        else {
+          try{
+           const res=await fetch('http://localhost:5000/api/users/donorReg', {
+            method:'PUT',
+           headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({})
+      });
+
+      if(!res.ok){
+        throw new Error("Failed to register as donor");
+      }
+      const data = await res.json();
+        }
+        catch(err){
+          console.error("Error fetching dashboard data:", err);
+          alert("An error occurred while accessing data. Please try again later.");
+        }
+       
+      }
+    }
+  }
+
+    let allActivites=[];
     // Mobile menu toggle
+    document.getElementById('logout').addEventListener('click', ()=>{
+      localStorage.removeItem('token')
+      window.location.href = './signin.html';
+    })
+
+
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const sidebar = document.getElementById('sidebar');
 
@@ -551,6 +994,7 @@
 
 
   const appointmentsContainer = document.querySelector('.appointments-table');
+  const appointmentsContainer2 = document.querySelector('.appointments-table tbody');
 
   async function loadUpcomingAppointments() {
     const token = localStorage.getItem('token');
@@ -564,12 +1008,18 @@
         }
       });
       const data = await res.json();
+
+      allActivites = data.data.activities
       if(data.data.user){
-        console.log(data.data.user.firstName)
+      console.log(data.data.user.firstName)
       document.querySelector('.donation-count').textContent = data.data.user.donationCount;
-      document.querySelector('.user-name').textContent = data.data.user.firstName;
-      console.log(data.data.user.firstName)}
-      else{
+      document.querySelector('.request-count').textContent = data.data.requestCount || 0;
+      const donationdate=new Date(data.data.user.lastDonated)
+      document.querySelector('.donationdate').textContent = donationdate? new Date(data.data.user.lastDonated).toLocaleDateString():'N/A';
+      document.querySelector('.user-name').textContent = 'Welcome, ' +data.data.user.firstName;
+      console.log(data.data.user.firstName)
+      console.log(data.data.user.lastDonated)
+    } else{
         console.log(`User data missing ${data.data.user.firstName}`)
       }
 
@@ -579,6 +1029,39 @@
       console.log(err)
     }
 
+    
+
+
+    allActivites.forEach( activity =>{
+      const card = document.createElement('div');
+      card.className = 'activity-item';
+      if(activity.type ==='request'){
+      card.innerHTML=`
+      <div class="activity-icon">
+       <img src="blood-transfusion.png" alt="Blood Donation Icon" class="activity-icon-sb">
+      </div>
+      <div class="activity-details">
+        <h4>Requested for Blood</h4>
+         <p><i class="fa fa-medkit"></i><strong>Reason:</strong>${activity.reason}</p>
+        <p><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> ${activity.location}, ${activity.city}</p>
+        <p><i class="fa-regular fa-calendar"></i><strong>Date:</strong>${new Date(activity.appointmentTime).toLocaleDateString()}</p>
+      
+      `}else{
+        card.innerHTML=`
+      <div class="activity-icon">
+        <img src="transfusion.png" alt="Blood Donation Icon" class="activity-icon-sb">
+      </div>
+      <div class="activity-details">
+        <h4>Donated Blood</h4>
+        <p><i class="fa fa-medkit"></i><strong>Reason:</strong>${activity.reason}</p>
+        <p><i class="fa-solid fa-location-dot"></i><strong>Location:</strong> ${activity.location}, ${activity.city}</p>
+        <p><i class="fa-regular fa-calendar"></i><strong>Date:</strong>${new Date(activity.appointmentTime).toLocaleDateString()}</p>
+      `
+      }
+      document.querySelector('.activity-list').appendChild(card);
+
+    })
+   
     try {
       const response = await fetch('http://localhost:5000/api/offers/my/appointments', {
         headers: {
@@ -588,32 +1071,42 @@
 
       const appointments = await response.json();
 
-      if (!appointments.length) {
+     
+    
+      const filtered=appointments.filter(appt=>{
+      const apptTime=new Date(appt.appointmentTime);
+      return appt.status==='Confirmed' && apptTime>new Date();
+      });
+
+      if (!filtered.length || !appointments.length) {
         appointmentsContainer.innerHTML = `
           <tr><td colspan="4" style="text-align:center">No upcoming appointments</td></tr>
         `;
         return;
       }
-     
 
-      const filtered=appointments.filter(appt=>appt.status==='Confirmed')
+      // document.querySelector('.donation-count').textContent = appointments.appointments[0].donationCount;
 
-      appointmentsContainer.innerHTML = filtered.map(appt => `
-        <tr>
-          <td>${new Date(appt.appointmentTime).toLocaleDateString()}</td>
-          <td>${new Date(appt.appointmentTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
-          <td>${appt.location}</td>
-          <td>
-            <span class="status-badge status-${appt.status.toLowerCase()}">
-              ${appt.status}
-            </span>
-          </td>
-          <td>
-            <a class="action-link" onclick="cancelAppointment('${appt._id}')">Cancel</a>
-          </td>
-         
-        </tr>
-      `).join('');
+      appointmentsContainer2.innerHTML = filtered.map(appt => {
+  // Log the appointment time
+  console.log(appt.appointmentTime);
+
+  return `
+    <tr>
+      <td>${new Date(appt.appointmentTime).toLocaleDateString()}</td>
+      <td>${new Date(appt.appointmentTime).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</td>
+      <td>${appt.location}</td>
+      <td>
+        <span class="status-badge status-${appt.status.toLowerCase()}">
+          ${appt.status}
+        </span>
+      </td>
+      <td>
+        <a class="action-link" onclick="cancelAppointment('${appt._id}')">Cancel</a>
+      </td>
+    </tr>
+  `;
+}).join('');
 
     } catch (err) {
       console.error('Error loading appointments:', err);
@@ -646,6 +1139,13 @@
 
   
   window.addEventListener('load', () => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      document.getElementById("popup").style.display = "flex";
+      document.getElementById("page-content").classList.add("blurred")
+    }
+    else 
+    document.getElementById('popup').style.display = "none"
     loadUpcomingAppointments();
   });
 

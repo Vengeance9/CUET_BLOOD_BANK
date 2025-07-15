@@ -6,6 +6,99 @@
     <title>CUET Blood Bank - All Donors</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+
+        /* Root Variables (used in header styles) */
+:root {
+  --primary: #d32f2f;
+  --primary-dark: #b71c1c;
+  --primary-light: #ff6659;
+  --secondary: #2e7d32;
+  --dark: #212121;
+  --light: #f5f5f5;
+}
+
+/* Base Styles (relevant for header) */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', 'Segoe UI', Roboto, -apple-system, sans-serif;
+}
+
+/* Header Styles */
+.main-header {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.main-header h1 {
+  margin: -15px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #3d1c1c;
+}
+
+.main-nav {
+  display: flex;
+  gap: 25px;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  padding: 8px 0;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.9;
+}
+
+.nav-link.active {
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: white;
+  border-radius: 3px;
+}
         /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,15 +109,17 @@
         }
 
         .container {
-            width: 90%;
-            max-width: 1200px;
+            width: 950px;
+            margin-left: 600px;
             margin: 0 auto;
-            padding: 20px 0;
+            padding: 50px 0;
+            margin-top: 20px;
+            padding-left: 80px;
         }
 
         /* Header Styles */
         header {
-            margin-bottom: 32px;
+            margin-bottom: 0px;
         }
 
         .header-content {
@@ -52,7 +147,7 @@
         }
 
         .nav-link {
-            color: #4b5563;
+            color: #ffffff;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -69,7 +164,7 @@
         .page-header {
             display: flex;
             flex-direction: column;
-            margin-bottom: 32px;
+            margin-bottom: 0px;
         }
 
         .page-title h2 {
@@ -397,24 +492,368 @@
         .page-button:hover {
             background-color: #f9fafb;
         }
+
+        * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar-text-container {
+  padding: 1.5rem 1rem;
+  background: linear-gradient(90deg, #b91c1c 0%, #dc2626 100%);
+  border-bottom: 2px solid #991b1b;
+}
+
+.sidebar-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar-text img {
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuet-blood-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+nav {
+  padding: 1.5rem 1rem;
+}
+
+.nav-ul {
+  list-style: none;
+}
+
+.nav-ul li {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  color: #1f2a44;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  transform: translateX(5px);
+}
+
+.sidebar-link.active {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+  box-shadow: inset 4px 0 0 #b91c1c;
+}
+
+.sidebar-link i {
+  color: #1f2a44;
+  margin-right: 0.75rem;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: #b91c1c;
+}
+
+/* Hover Effect Animation */
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(185, 28, 28, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-link:hover::before {
+  left: 100%;
+}
+
+/* Mobile Menu Button (if used) */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4b5563;
+  margin-right: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-text img {
+    height: 36px;
+  }
+
+  .cuet-blood-text {
+    font-size: 1.2rem;
+  }
+
+  .sidebar-link {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .sidebar-link i {
+    font-size: 1.1rem;
+  }
+}
+
+    i {
+      margin-right: 8px;
+      width: 16px;
+      text-align: center;
+    }
+    /* Base Styles for Sidebar */
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar-text-container {
+  padding: 1.5rem 1rem;
+  background: linear-gradient(90deg, #b91c1c 0%, #dc2626 100%);
+  border-bottom: 2px solid #991b1b;
+}
+
+.sidebar-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar-text img {
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuet-blood-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+nav {
+  padding: 1.5rem 1rem;
+}
+
+.nav-ul {
+  list-style: none;
+}
+
+.nav-ul li {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  color: #1f2a44;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  transform: translateX(5px);
+}
+
+.sidebar-link.active {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+  box-shadow: inset 4px 0 0 #b91c1c;
+}
+
+.sidebar-link i {
+  color: #1f2a44;
+  margin-right: 0.75rem;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: #b91c1c;
+}
+
+/* Hover Effect Animation */
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(185, 28, 28, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-link:hover::before {
+  left: 100%;
+}
+
     </style>
 </head>
 <body>
+    <header class="main-header">
+        <div class="header-content">
+          <div class="logo-container">
+            <img src="logo2.png" alt="Blood Drop Logo" class="logo">
+            <h1>CUET BLOOD BANK</h1>
+          </div>
+          <nav class="main-nav">
+          
+            <a href="#" class="nav-link">About Us</a>
+            <a href="#" class="nav-link">Contact </a>
+          </nav>
+        </div>
+      </header>
+    <div class="sidebar" id="sidebar">
+       
+        <nav style="margin-top: -7px;">
+          <ul class="nav-ul">
+            <li>
+              <a href="./home.html" class="sidebar-link">
+                <i class="fas fa-home"></i> Home
+              </a>
+            </li>
+            <li>
+              <a href="./dashboard.html" class="sidebar-link">
+                <i class="fas fa-user"></i> Dashboard
+              </a>
+            </li>
+            <li>
+              <a href="./donorForReq.html" class="sidebar-link">
+                <i class="fas fa-heartbeat"></i> Donation for me
+              </a>
+            </li>
+            <li>
+              <a href="./Notification.html" class="sidebar-link">
+                <i class="fas fa-hand-holding-medical"></i> Blood Requests
+              </a>
+            </li>
+            <li>
+              <a href="./Notification.html" class="sidebar-link active">
+                <i class="fa fa-list-ul"></i> View All Donors
+              </a>
+            </li>
+            <li>
+              <a href="./campaigns.html" class="sidebar-link">
+                <i class="fas fa-calendar-alt"></i> Campaigns
+              </a>
+            </li>
+            <li>
+              <a href="#" id="logout" class="sidebar-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
     <div class="container">
         <!-- Header -->
-        <header>
-            <div class="header-content">
-                <div class="logo">
-                    <h1>CUET Blood Bank</h1>
-                    <p>Saving Lives Together</p>
-                </div>
-                <div class="nav-links">
-                    <a href="./dashboard.html" class="nav-link">
-                        <i class="fas fa-home"></i> Dashboard
-                    </a>
-                </div>
-            </div>
-        </header>
+       
 
         <!-- Page Title and Controls -->
         <div class="page-header">
@@ -444,7 +883,7 @@
         </div>
 
         <!-- Donors Grid -->
-        <div id="donorsContainer" class="donors-grid">
+        <div id="donorsContainer" class="donors-grid" style="margin-top: 50px;">
             <!-- Donor cards will be dynamically inserted here -->
         </div>
 
@@ -467,91 +906,31 @@
     </div>
 
     <script>
-        // Sample donor data (in a real app, this would come from an API)
-        const donors = [
-            {
-                id: 1,
-                name: "Md. Rahim Khan",
-                email: "rahim@cuet.ac.bd",
-                phone: "01712345678",
-                address: "CUET Staff Quarter, Road 3, Chittagong",
-                bloodGroup: "A+",
-                lastDonation: "2023-05-15",
-                status: "active"
-            },
-            {
-                id: 2,
-                name: "Fatema Akter",
-                email: "fatema@cuet.ac.bd",
-                phone: "01898765432",
-                address: "CUET Girls Hall, Room 305, Chittagong",
-                bloodGroup: "B+",
-                lastDonation: "2023-06-20",
-                status: "active"
-            },
-            {
-                id: 3,
-                name: "Abdul Karim",
-                email: "karim@cuet.ac.bd",
-                phone: "01911223344",
-                address: "CUET Boys Hall, Room 112, Chittagong",
-                bloodGroup: "O+",
-                lastDonation: "2023-04-10",
-                status: "active"
-            },
-            {
-                id: 4,
-                name: "Nusrat Jahan",
-                email: "nusrat@cuet.ac.bd",
-                phone: "01655667788",
-                address: "CUET Girls Hall, Room 208, Chittagong",
-                bloodGroup: "AB+",
-                lastDonation: "2023-07-05",
-                status: "active"
-            },
-            {
-                id: 5,
-                name: "Kamal Hossain",
-                email: "kamal@cuet.ac.bd",
-                phone: "01567891234",
-                address: "CUET Boys Hall, Room 405, Chittagong",
-                bloodGroup: "A-",
-                lastDonation: "2023-03-18",
-                status: "active"
-            },
-            {
-                id: 6,
-                name: "Shirin Akter",
-                email: "shirin@cuet.ac.bd",
-                phone: "01788990011",
-                address: "CUET Girls Hall, Room 101, Chittagong",
-                bloodGroup: "O-",
-                lastDonation: "2023-08-12",
-                status: "active"
-            },
-            {
-                id: 7,
-                name: "Md. Sajjad Hossain",
-                email: "sajjad@cuet.ac.bd",
-                phone: "01833445566",
-                address: "CUET Staff Quarter, Road 5, Chittagong",
-                bloodGroup: "B-",
-                lastDonation: "2023-02-28",
-                status: "active"
-            },
-            {
-                id: 8,
-                name: "Tasnim Rahman",
-                email: "tasnim@cuet.ac.bd",
-                phone: "01977889900",
-                address: "CUET Girls Hall, Room 312, Chittagong",
-                bloodGroup: "AB-",
-                lastDonation: "2023-01-15",
-                status: "active"
-            }
-        ];
+        const donors=[];
+        let currentPage = 1;
+        const limit = 10;
+        const token = localStorage.getItem('token');
 
-        // Function to render donor cards
+        async function fetchDonors(page=1) {
+            try {
+                const response = await fetch(`http://localhost:5000/api/users/donors?page=${page}&limit=${limit}`,{
+                    headers: {
+                    'Authorization': 'Bearer ' + token
+                }
+                }); 
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                console.log('Fetched donor data:', data);
+                donors.push(...data.data); 
+                renderDonors(donors);
+            } catch (error) {
+                console.error('Error fetching donors:', error);
+            }
+        }
+
+        
         function renderDonors(donorsToRender) {
             const container = document.getElementById('donorsContainer');
             container.innerHTML = '';
@@ -585,7 +964,7 @@
                     <div class="donor-content">
                         <div class="donor-header">
                             <div>
-                                <h3 class="donor-name">${donor.name}</h3>
+                                <h3 class="donor-name">${donor.firstName} ${donor.lastName}</h3>
                                 <p class="donor-email">${donor.email}</p>
                             </div>
                             <div class="blood-group ${bloodGroupClasses[donor.bloodGroup]}">
@@ -598,10 +977,7 @@
                                 <i class="fas fa-phone-alt detail-icon"></i>
                                 <p class="detail-text">${donor.phone}</p>
                             </div>
-                            <div class="detail-item">
-                                <i class="fas fa-map-marker-alt detail-icon"></i>
-                                <p class="detail-text">${donor.address}</p>
-                            </div>
+                            
                             <div class="detail-item">
                                 <i class="fas fa-calendar-alt detail-icon"></i>
                                 <p class="detail-text">Last donated: ${formatDate(donor.lastDonation)}</p>
@@ -655,24 +1031,28 @@
 
         // Initial render
         document.addEventListener('DOMContentLoaded', () => {
-            renderDonors(donors);
+            fetchDonors();
         });
 
         // Pagination functionality (simplified for this example)
         document.querySelectorAll('.page-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                // In a real app, this would fetch the corresponding page of data
-                alert('Pagination would load more donors in a real application');
-            });
-        });
+      btn.addEventListener('click', () => {
+        currentPage = parseInt(btn.textContent);
+        fetchDonors(currentPage);
+      });
+    });
 
-        document.getElementById('prevPage').addEventListener('click', () => {
-            alert('Previous page would be loaded in a real application');
-        });
+    document.getElementById('prevPage').addEventListener('click', () => {
+      if (currentPage > 1) {
+        currentPage--;
+        fetchDonors(currentPage);
+      }
+    });
 
-        document.getElementById('nextPage').addEventListener('click', () => {
-            alert('Next page would be loaded in a real application');
-        });
+    document.getElementById('nextPage').addEventListener('click', () => {
+      currentPage++;
+      fetchDonors(currentPage);
+    });
     </script>
 </body>
 </html>

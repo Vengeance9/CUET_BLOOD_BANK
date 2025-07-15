@@ -476,6 +476,7 @@
     
     .cta-btn:hover {
       background-color: var(--gray-100);
+      cursor: pointer;
     }
     
     /* Footer */
@@ -776,8 +777,14 @@
         <span class="logo-text">CUET Blood Bank</span>
       </div>
       
-      <nav class="nav-links">
-        <a href="./home.html">Home</a>
+      <nav class="nav-links" id="unlogged-nav">
+        <a href="./all_donors.html">All donors</a>
+        <a href="./campaigns2.html">Campaigns</a>
+        <a href="./aboutus.html">About Us</a>
+      </nav>
+      <nav class="nav-links" id="logged-nav">
+        <a href="./dashboard.html">Dashboard</a>
+        <a href="./all_donors.html">All Donors</a>
         <a href="./campaigns.html">Campaigns</a>
         <a href="./aboutus.html">About Us</a>
       </nav>
@@ -1039,7 +1046,7 @@
     <div class="container">
       <h2 class="cta-title">Ready to Make a Difference?</h2>
       <p class="cta-description">Join our community of blood donors today and help save lives in your area.</p>
-      <a href="./signup.html" class="cta-btn">Register as a Donor</a>
+      <button onclick="registerAsDonor()" class="cta-btn">Register as a Donor</button>
     </div>
   </section>
 
@@ -1140,6 +1147,43 @@
   <div id="backdrop"></div>
 
   <script>
+
+     async function registerAsDonor() {
+      const token = localStorage.getItem('token');
+      if (!token) {
+        alert("Please sign up or log in to register as a donor.");
+        window.location.href = './signup.html';
+      } else {
+        const token = localStorage.getItem('token');
+        if(!token){
+          window.location.href = './signup.html';
+        }
+        else {
+          try{
+           const res=await fetch('http://localhost:5000/api/users/donorReg', {
+            method:'PUT',
+           headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + token
+        },
+        body: JSON.stringify({})
+      });
+
+      if(!res.ok){
+        throw new Error("Failed to register as donor");
+      }
+      const data = await res.json();
+        }
+        catch(err){
+          console.error("Error fetching dashboard data:", err);
+          alert("An error occurred while accessing data. Please try again later.");
+        }
+       
+      }
+    }
+  }
+
+    
     // Mobile menu toggle
     const openSlide = document.getElementById('openSlide');
     const closeSlide = document.getElementById('closeSlide');
@@ -1201,9 +1245,41 @@
         }
       });
     }
+
+    function isUserLoggedIn(){
+      if(localStorage.getItem('token'))return true
+      return false;
+    }
     
     // Initialize elements with opacity 0 for animation
     document.addEventListener('DOMContentLoaded', function() {
+      const isLoggedIn=isUserLoggedIn();
+      const donorBTN=document.querySelector('.primary-btn');
+      const requestBTN=document.querySelector('.secondary-btn');
+      const authbuttons=document.querySelector('.auth-buttons');
+      const loggedNav = document.getElementById('logged-nav')
+      const unloggedNav = document.getElementById('unlogged-nav')
+
+
+
+      if(isLoggedIn){
+        donorBTN.href='./RequestForm.html';
+        requestBTN.href='./RequestForm.html';
+        authbuttons.style.display='none';
+        loggedNav.style.display = 'flex'
+        unloggedNav.style.display = 'none'
+
+      
+      }
+      else{ 
+        donorBTN.href='./signup.html';
+        requestBTN.href='./signup.html';
+        unloggedNav.style.display = 'flex'
+        loggedNav.style.display = 'none'
+      }
+
+
+
       const elements = document.querySelectorAll('.benefit-card, .stat-card, .fact-item, .step');
       elements.forEach(element => {
         element.style.opacity = '0';

@@ -3,75 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <title>Notifications - Need Blood</title>
   <style>
+    :root {
+      --primary: #d32f2f;
+      --primary-dark: #b71c1c;
+      --primary-light: #ff6659;
+      --secondary: #2e7d32;
+      --dark: #212121;
+      --light: #f5f5f5;
+    }
+
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Poppins', 'Segoe UI', Roboto, -apple-system, sans-serif;
       margin: 0;
-      padding: 20px;
-      background-color: #f9f9f9;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h1 {
-      text-align: center;
-      color: #c53030;
-    }
-
-    .filters {
+      padding: 0;
+      background-color: #f8f9fa;
+      color: #333;
+      min-height: 100vh;
       display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-      justify-content: center;
+      flex-direction: column;
     }
 
-    .filter-select {
-      position: relative;
-      min-width: 180px;
+    .main-header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 1rem 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
 
-    select {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-      font-size: 14px;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='%23999' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px top 50%;
-      background-size: 12px;
-      transition: border-color 0.3s ease;
-    }
-
-    select:focus {
-      outline: none;
-      border-color: #c53030;
-      box-shadow: 0 0 0 2px rgba(197, 48, 48, 0.2);
-    }
-
-    .notification-card {
-      background: white;
-      padding: 15px;
-      margin-bottom: 15px;
-      border-left: 5px solid #c53030;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      border-radius: 5px;
-      transition: transform 0.2s ease;
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo {
+      width: 50px;
+      height: 50px;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+
+    .main-header h1 {
+      margin: -15px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+      color: #3d1c1c;
+    }
+
+    .main-nav {
+      display: flex;
+      gap: 25px;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1rem;
+      padding: 8px 0;
+      position: relative;
+      transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 0.9;
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: white;
+      border-radius: 3px;
+    }
+
+    .container {
+      width: 1000px;
+      margin: 40px auto;
+      padding: 0 20px;
+      flex: 1;
+      margin-left: 400px;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      position: relative;
+      padding-bottom: 15px;
+      letter-spacing: -0.5px;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--primary-light));
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+    }
+
+    .filters {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    }
+
+    .filter-select {
+      position: relative;
+      min-width: 200px;
+      flex: 1;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid #e0e0e0;
+      font-size: 15px;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px top 50%;
+      background-size: 16px;
+      transition: all 0.3s ease;
+      background-color: #f8f9fa;
+      color: #444;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #d32f2f;
+      box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.1);
+      background-color: white;
+    }
+
+    .notification-card {
+      background: white;
+      padding: 25px;
+      margin-bottom: 25px;
+      border-left: 6px solid #d32f2f;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
     .notification-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+
+    .notification-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(211, 47, 47, 0.03) 0%, rgba(211, 47, 47, 0.01) 100%);
+      z-index: 0;
     }
 
     .notification-header {
@@ -81,47 +215,440 @@
     }
 
     .profile-pic {
-      width: 40px;
-      height: 40px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      background-color: #ddd;
-      background-image: url('https://via.placeholder.com/40'); 
+      background-color: #f0f0f0;
+      background-image: url('https://ui-avatars.com/api/?background=d32f2f&color=fff&name=');
       background-size: cover;
       background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      border: 3px solid rgba(211, 47, 47, 0.2);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 1;
     }
 
     .notification-info {
       flex-grow: 1;
+      margin-left: 20px;
+      position: relative;
+      z-index: 1;
     }
 
     .notification-info h3 {
       margin: 0;
-      font-size: 16px;
-      color: #333;
+      font-size: 18px;
+      color: #222;
+      font-weight: 700;
+      letter-spacing: 0.2px;
     }
 
     .notification-info p {
-      margin: 5px 0;
-      font-size: 14px;
-      color: #666;
+      margin: 8px 0;
+      font-size: 15px;
+      color: #555;
+      line-height: 1.5;
+    }
+
+    .notification-info p strong {
+      color: #333;
+      font-weight: 600;
+    }
+
+    .urgency-badge {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #ff5252;
+      color: white;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      box-shadow: 0 2px 5px rgba(255, 82, 82, 0.3);
     }
 
     .donate-btn {
-      background-color: #c53030;
+      background-color: #d32f2f;
       color: white;
       border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
+      padding: 12px 20px;
+      border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      min-width: 120px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(211, 47, 47, 0.2);
+      z-index: 1;
     }
 
     .donate-btn:hover {
-      background-color: #a02626;
+      background-color: #b71c1c;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+    }
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    }
+
+    .empty-state svg {
+      margin-bottom: 20px;
+    }
+
+    .empty-state h3 {
+      color: #d32f2f;
+      margin-bottom: 10px;
+    }
+
+    .empty-state p {
+      color: #666;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .main-footer {
+      background: var(--dark);
+      color: white;
+      padding: 3rem 0 0;
+      margin-top: auto;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .footer-section h3 {
+      color: var(--primary-light);
+      margin-bottom: 1.5rem;
+      font-size: 1.2rem;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-section h3::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 2px;
+      background: var(--primary);
+    }
+
+    .footer-section p, .footer-section li {
+      margin-bottom: 1rem;
+      color: #bbb;
+    }
+
+    .footer-section a {
+      color: #ddd;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .footer-section a:hover {
+      color: var(--primary-light);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-icon {
+      color: white;
+      background: rgba(255,255,255,0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .social-icon:hover {
+      background: var(--primary);
+      transform: translateY(-3px);
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding: 1.5rem 0;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      font-size: 0.9rem;
+      color: #999;
+    }
+
+    .pending-btn{
+      background-color: rgb(94, 94, 94); /* Example: Gray background for pending buttons */
+      cursor: not-allowed; /* Change cursor to indicate it's disabled */
+      opacity: 0.6;
+      font-style: var(--dark);
+
+    }
+    /* Base Styles for Sidebar */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sidebar-container {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+.sidebar {
+  width: 260px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.08);
+  position: fixed;
+  height: 100%;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.sidebar-text-container {
+  padding: 1.5rem 1rem;
+  background: linear-gradient(90deg, #b91c1c 0%, #dc2626 100%);
+  border-bottom: 2px solid #991b1b;
+}
+
+.sidebar-text {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.sidebar-text img {
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cuet-blood-text {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+nav {
+  padding: 1.5rem 1rem;
+}
+
+.nav-ul {
+  list-style: none;
+}
+
+.nav-ul li {
+  margin-bottom: 0.75rem;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 0.9rem 1.2rem;
+  border-radius: 8px;
+  color: #1f2a44;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.sidebar-link:hover {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  transform: translateX(5px);
+}
+
+.sidebar-link.active {
+  background-color: #fef2f2;
+  color: #b91c1c;
+  font-weight: 600;
+  box-shadow: inset 4px 0 0 #b91c1c;
+}
+
+.sidebar-link i {
+  color: #1f2a44;
+  margin-right: 0.75rem;
+  width: 24px;
+  text-align: center;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+}
+
+.sidebar-link:hover i,
+.sidebar-link.active i {
+  color: #b91c1c;
+}
+
+/* Hover Effect Animation */
+.sidebar-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(185, 28, 28, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.sidebar-link:hover::before {
+  left: 100%;
+}
+
+/* Mobile Menu Button (if used) */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #4b5563;
+  margin-right: 1rem;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 220px;
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+  }
+
+  .sidebar.active {
+    transform: translateX(0);
+  }
+
+  .main-content {
+    margin-left: 0;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .sidebar-text img {
+    height: 36px;
+  }
+
+  .cuet-blood-text {
+    font-size: 1.2rem;
+  }
+
+  .sidebar-link {
+    padding: 0.8rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .sidebar-link i {
+    font-size: 1.1rem;
+  }
+}
+
+    i {
+      margin-right: 8px;
+      width: 16px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-text-container">
+      <div class="sidebar-text">
+        <img src="https://via.placeholder.com/40" alt="">
+        <span class="cuet-blood-text">CUET Blood Bank</span>
+      </div>
+    </div>
+    <nav>
+      <ul class="nav-ul">
+        <li>
+          <a href="./home.html" class="sidebar-link">
+            <i class="fas fa-home"></i> Home
+          </a>
+        </li>
+        <li>
+          <a href="./dashboard.html" class="sidebar-link">
+            <i class="fas fa-user"></i> Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="./donorForReq.html" class="sidebar-link">
+            <i class="fas fa-heartbeat"></i> Donation for me
+          </a>
+        </li>
+        <li>
+          <a href="./Notification.html" class="sidebar-link active">
+            <i class="fas fa-hand-holding-medical"></i> Blood Requests
+          </a>
+        </li>
+        <li>
+          <a href="./all_donors.html" class="sidebar-link">
+            <i class="fa fa-list-ul"></i> View All Donors
+          </a>
+        </li>
+        <li>
+          <a href="./campaigns.html" class="sidebar-link">
+            <i class="fas fa-calendar-alt"></i> Campaigns
+          </a>
+        </li>
+        <li>
+          <a href="#" id="logout" class="sidebar-link">
+            <i class="fas fa-sign-out-alt"></i> Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <header class="main-header">
+    <div class="header-content">
+      <div class="logo-container">
+        <img src="logo2.png" alt="Blood Drop Logo" class="logo">
+        <h1>CUET BLOOD BANK</h1>
+      </div>
+      <nav class="main-nav">
+       
+        <a href="#" class="nav-link">About Us</a>
+        <a href="#" class="nav-link">Contact</a>
+      </nav>
+    </div>
+  </header>
 
   <div class="container">
     <h1>Blood Requests (Pending)</h1>
@@ -164,20 +691,43 @@
 
   <script>
     let allRequests = [];
+    let myRequests=[];
 
     async function fetchBloodRequests() {
+    const token = localStorage.getItem('token');
+    console.log(`Token: ${token}`);
+    if (!token) return;
       try {
-        const response = await fetch('http://localhost:5000/api/requests');
+        const response = await fetch('http://localhost:5000/api/requests/get',{
+          headers:{
+            'Authorization':'Bearer '+token
+          }
+        });
+
         const data = await response.json();
+
+        // added later
+
+        const myOffers= await fetch('http://localhost:5000/api/offers/myOffers', {
+          headers: {
+            'Authorization': 'Bearer ' + token
+          }
+        });
+
+        const myOffersData = await myOffers.json();
+        myRequests= myOffersData.map(offer => offer.requestId);
 
       
         allRequests = data.map(req => ({
+          _id: req._id,
           name: `${req.user.firstName} ${req.user.lastName}`,
           bloodGroup: req.bloodGroup,
           location: req.location,
           city: req.city,
-          reason: req.reason
-        }));
+          reason: req.reason,
+          appointmentTime: new Date(req.appointmentTime),
+        }))
+          .filter(item => item.appointmentTime > new Date());
 
         renderNotifications(allRequests);
       } catch (err) {
@@ -197,21 +747,40 @@
       }
 
       data.forEach(item => {
+        console.log(item._id)
+        console.log(item.bloodGroup)
         const card = document.createElement("div");
         card.className = "notification-card";
 
+       
+
+        const isPending  = myRequests.includes(item._id.toString());
+
+        console.log('myRequests:', myRequests);
+        console.log('item._id:', item._id.toString());
+
         card.innerHTML = `
+   
           <div class="notification-header">
             <div class="profile-pic"></div>
             <div class="notification-info">
               <h3>${item.name}</h3>
               <p><strong>Blood Group:</strong> ${item.bloodGroup}</p>
               <p><strong>Location:</strong> ${item.location}</p>
-              <p><em>${item.reason}</em></p>
+              <p><strong>City:</strong> ${item.city}</p>
+              <p><strong>Apointment Time:</strong> ${new Date(item.appointmentTime).toLocaleDateString([],{hour:'2-digit',minute:'2-digit'})}</p>
+              <p><strong>Reason:</strong> <em style="color: red">${item.reason}</em></p>
+              
             </div>
           </div>
-          <button class="donate-btn" onclick="window.location.href='DonationForm.html?requestId=${item.id || 'REQUEST_ID_HERE'}'>Donate</button>
+          <button class="donate-btn ${isPending ? 'pending-btn' : ''} "
+      ${isPending ? 'disabled' : `onclick="window.location.href='DonationForm.html?requestId=${item._id}'"`}>
+      ${isPending ? 'Pending Request' : 'Donate'}
+    </button>
+        
         `;
+
+        console.log(card.innerHTML);
         container.appendChild(card);
       });
     }
@@ -225,7 +794,8 @@
       const filtered = allRequests.filter(item => {
         const matchesCity = !cityFilter || item.city.toLowerCase() === cityFilter;
         const matchesBloodGroup = !bloodGroupFilter || item.bloodGroup === bloodGroupFilter;
-        return matchesCity && matchesBloodGroup;
+        const isPast = item.appointmentTime < new Date();
+        return matchesCity && matchesBloodGroup && isPast;
       });
 
       renderNotifications(filtered);

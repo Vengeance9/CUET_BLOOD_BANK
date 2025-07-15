@@ -291,13 +291,13 @@
             <label for="city">City</label>
             <select id="city" name="city" required>
               <option value="" disabled selected>Select your city</option>
-              <option value="A+">Dhaka</option>
-              <option value="A-">Chittagong</option>
-              <option value="B+">Khulna</option>
-              <option value="B-">Rajshahi</option>
-              <option value="AB+">Rangpur</option>
-              <option value="AB-">Barishal</option>
-              <option value="O+">Sylhet</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Chittagong">Chittagong</option>
+              <option value="Khulna">Khulna</option>
+              <option value="Rajshahi">Rajshahi</option>
+              <option value="Rangpur">Rangpur</option>
+              <option value="Barishal">Barishal</option>
+              <option value="Sylhet">Sylhet</option>
             </select>
           </div>
 
@@ -321,6 +321,10 @@
 
       const urlParams = new URLSearchParams(window.location.search);
       const requestId = urlParams.get('requestId');
+
+      console.log(`Request ID: ${requestId}`);
+
+      localStorage.setItem('currentRequestId', requestId);
   
       const firstName = document.getElementById('firstName').value.trim();
       const lastName = document.getElementById('lastName').value.trim();
@@ -353,7 +357,7 @@
       };
   
       try {
-        const response = await fetch('http://localhost:5000/api/offers', {
+        const response = await fetch('http://localhost:5000/api/offers/donate', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

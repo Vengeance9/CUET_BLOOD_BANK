@@ -7,17 +7,17 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary-color: #b40000;
-      --primary-hover: #8a0000;
-      --text-color: #374151;
-      --light-text: #6b7280;
-      --bg-color: #f8fafc;
-      --white: #ffffff;
-      --gray-light: #e5e7eb;
-      --gray-medium: #d1d5db;
-      --red-light: #fee2e2;
-      --red-medium: #fca5a5;
-      --red-dark: #dc2626;
+      --primary-color: #2563eb;
+      --primary-hover: #1d4ed8;
+      --text-color: #f8fafc;
+      --light-text: #94a3b8;
+      --bg-color: #0f172a;
+      --white: #1e293b;
+      --gray-light: #334155;
+      --gray-medium: #475569;
+      --red-light: #7f1d1d;
+      --red-medium: #991b1b;
+      --red-dark: #ef4444;
     }
     
     * {
@@ -42,8 +42,8 @@
     
     /* Header Styles */
     header {
-      background-color: var(--white);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      background-color: var(--bg-color);
+      border-bottom: 1px solid var(--gray-light);
       padding: 15px 0;
     }
     
@@ -86,25 +86,27 @@
     
     .login-container {
       background-color: var(--white);
-      border-radius: 12px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      border: 1px solid var(--gray-light);
       max-width: 400px;
       margin: 0 auto;
       padding: 32px;
     }
     
     .login-title {
-      font-size: 2rem;
-      font-weight: 700;
+      font-size: 1.8rem;
+      font-weight: 600;
       text-align: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       color: var(--text-color);
+      letter-spacing: -0.5px;
     }
     
     .login-subtitle {
       text-align: center;
       color: var(--light-text);
       margin-bottom: 32px;
+      font-size: 0.95rem;
     }
     
     /* Form Styles */
@@ -123,16 +125,18 @@
     .form-input {
       width: 100%;
       padding: 12px 16px;
-      border: 1px solid var(--gray-medium);
+      background-color: var(--bg-color);
+      border: 1px solid var(--gray-light);
       border-radius: 6px;
       font-size: 1rem;
+      color: var(--text-color);
       transition: all 0.3s ease;
     }
     
     .form-input:focus {
       outline: none;
       border-color: var(--primary-color);
-      box-shadow: 0 0 0 2px rgba(180, 0, 0, 0.2);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
     }
     
     .remember-container {
@@ -170,17 +174,19 @@
       width: 100%;
       padding: 12px;
       background-color: var(--primary-color);
-      color: var(--white);
+      color: white;
       border: none;
       border-radius: 6px;
       font-size: 1rem;
       font-weight: 500;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
     }
     
     .submit-btn:hover {
       background-color: var(--primary-hover);
+      transform: translateY(-1px);
     }
     
     /* Divider Styles */
@@ -350,10 +356,6 @@
           </div>
           
           <div class="remember-container">
-            <div class="remember-me">
-              <input type="checkbox" id="rememberMe" name="rememberMe" class="remember-checkbox">
-              <label for="rememberMe">Remember me</label>
-            </div>
             <a href="#" class="forgot-password">Forgot password?</a>
           </div>
           
@@ -371,6 +373,10 @@
 
   </main>
   
+
+<!-- SCRIPT STARTS HERE -->
+
+
   <script>
       const pass = document.getElementById('loginPassword')
       const show = document.getElementById('showPassword')
@@ -401,7 +407,7 @@
       }
   
       try {
-        const response = await fetch('http://localhost:5000/api/auth/login', {
+        const response = await fetch('http://localhost:5000/api/auth/admin/login', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -416,7 +422,7 @@
         }
         localStorage.setItem('token', result.token);
 
-        function showToastAndRedirect(message, redirectUrl) {
+    function showToastAndRedirect(message, redirectUrl) {
     const toast = document.getElementById("toast");
     toast.textContent = message;
     toast.classList.add("show");
@@ -427,7 +433,7 @@
       window.location.href = redirectUrl;
     }, 1200);
   }
-  showToastAndRedirect('Login successful!', './dashboard.html');
+  showToastAndRedirect('Login successful!', './admin_dashboard.html');
 
   
       } catch (error) {

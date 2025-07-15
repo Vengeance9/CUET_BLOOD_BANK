@@ -32,6 +32,7 @@ const loginValidation = [
 
 router.post('/register', registerValidation, authController.register);
 router.post('/login', loginValidation, authController.login);
+router.post('/admin/login', loginValidation,authController.adminlogin);
 
 
 module.exports = router;
